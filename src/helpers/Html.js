@@ -64,12 +64,6 @@ export default class Html extends Component {
                   rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )
         }
-        {/* <link href="/vendors/css/antd.css" media="screen, projection"
-         rel="stylesheet" type="text/css" charSet="UTF-8"/> */}
-        {/* (will be present only in development mode) */}
-        {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
-        {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
-        {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
 
       </head>
       <body>
@@ -78,13 +72,6 @@ export default class Html extends Component {
       <script src={assets.javascript['common.js']} charSet="UTF-8"/>
       <script src="../vendors/js/jquery.min.js"></script>
       <script id="mainJs" src={assets.javascript.main} charSet="UTF-8"/>
-      {this.isFirstLoad() ? '' :
-        <script src="../vendors/js/echarts_v3_3_2.min.js"></script>
-      }
-      {this.isFirstLoad() ? '' :
-        <script src="../vendors/js/map/china.min.js"></script>
-      }
-      {/*<script src="../vendors/js/error.js"></script>*/}
       </body>
       </html>
     );
