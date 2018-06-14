@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 import styles from './index.less';
 // import NavBar from 'components/navBar';
@@ -23,16 +23,18 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className={styles.wrap} id="appWrap">
-        {false && <DevTools />}
-        {/* <NavBar/> */}
-        {/* <Modal modalStore={this.props.modalStore}/> */}
-        {/* <Message messageStore={this.props.messageStore}/> */}
-        <div className={styles.content}>
-        45
+      <React.Fragment>
+        <div className={styles.wrap} id="appWrap">
+          {false && <DevTools />}
+          {/* <NavBar/> */}
+          {/* <Modal modalStore={this.props.modalStore}/> */}
+          {/* <Message messageStore={this.props.messageStore}/> */}
+          <div className={styles.content}>
+            45
           {/* {this.props.children} */}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

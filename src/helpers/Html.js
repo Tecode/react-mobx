@@ -70,7 +70,6 @@ export default class Html extends Component {
       <div id="content" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: content}}/>
       <script dangerouslySetInnerHTML={{__html: `window.__data=${JSON.stringify(stores)};`}} charSet="UTF-8"/>
       <script src={assets.javascript['common.js']} charSet="UTF-8"/>
-      <script src="../vendors/js/jquery.min.js"></script>
       <script id="mainJs" src={assets.javascript.main} charSet="UTF-8"/>
       </body>
       </html>
