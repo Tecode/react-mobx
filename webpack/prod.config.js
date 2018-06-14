@@ -12,7 +12,7 @@ var assetsPath = path.resolve(projectRootPath, './static/dist');
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
@@ -34,10 +34,22 @@ module.exports = {
   // },
   module: {
     loaders: [
-      { test: /\.less$/, loader:ExtractTextPlugin.extract( 'style-loader','css?modules&importLoaders=2&sourceMap&localIdentName=[path]___[name]__[local]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap') },
-      { test: /\.js$/, exclude: /node_modules/, loaders: [strip.loader('console.log'), 'babel']},
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css?modules&importLoaders=2&sourceMap&localIdentName=[path]___[name]__[local]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap')
+      },
+      {
+        test: /\.js$/, exclude: /node_modules/,
+        loaders: [strip.loader('console.log'), 'babel']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
+        loader: 'url-loader?limit=10240'
+      }
     ]
   },
   progress: true,
@@ -52,7 +64,7 @@ module.exports = {
     new CleanPlugin([assetsPath], { root: projectRootPath }),
     new Visualizer(),
     // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
+    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

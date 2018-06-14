@@ -29,7 +29,7 @@ var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.developmen
 var combinedPlugins = babelrcObject.plugins || [];
 combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
 
-var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
+var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, { plugins: combinedPlugins });
 delete babelLoaderQuery.env;
 
 // Since we use .babelrc for client and server, and we don't want HMR enabled on the server, we have to add
@@ -46,12 +46,12 @@ for (var i = 0; i < babelLoaderQuery.plugins.length; ++i) {
 }
 
 if (!reactTransform) {
-  reactTransform = ['react-transform', {transforms: []}];
+  reactTransform = ['react-transform', { transforms: [] }];
   babelLoaderQuery.plugins.push(reactTransform);
 }
 
 if (!reactTransform[1] || !reactTransform[1].transforms) {
-  reactTransform[1] = Object.assign({}, reactTransform[1], {transforms: []});
+  reactTransform[1] = Object.assign({}, reactTransform[1], { transforms: [] });
 }
 
 // make sure react-transform-hmr is enabled
@@ -84,10 +84,23 @@ module.exports = {
   module: {
     loaders: [
       // { test: /\.css$/,loaders: ['style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]']},
-      { test: /\.less$/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[path]___[name]__[local]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap' },
-      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']},
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+      {
+        test: /\.less$/,
+        loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[path]___[name]__[local]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: webpackIsomorphicToolsPlugin.regular_expression('images'),
+        loader: 'url-loader?limit=10240'
+      }
     ]
   },
   progress: true,
