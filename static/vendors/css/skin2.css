@@ -1,0 +1,54 @@
+.header-wrap{
+  color: #bbbbbb;
+  background: #23384b;
+}
+.header-searchInput{
+  color: rgba(4, 191, 132, .3) !important;
+  border-bottom: 1px solid rgba(4, 191, 132, .3) !important;
+}
+.header-searchInput:hover{
+  border-bottom: 1px solid rgba(4, 191, 132, .3) !important;
+}
+.header-searchInput:focus{
+  color: #bbbbbb !important;
+  border-bottom: 1px solid #04bf84 !important;
+}
+.header-searchIcon{
+  color: #04bf84;
+}
+.header-userIcon{
+  background: url(../../images/1.6/Header/user2.png) no-repeat;
+}
+.header-logout:hover{
+  background: #1b2d3e;
+}
+.header-clockIcon{
+  background: url(../../images/1.6/Header/clock2.png) no-repeat;
+}
+.header-appCodeBox{
+  background: url(../../images/1.6/Header/appIcon2.png) 20px 22px no-repeat;
+}
+.header-hrVertical{
+  border-right: 1px solid #1b2d3e;
+}
+.leftBar-wrap{
+  color: #ffffff;
+  background: #3a4e60;
+}
+.leftBar-parentItem{
+  color: #bbbbbb;
+}
+.leftBar-childBox{
+  border-bottom: 1px solid #324556;
+}
+.leftBar-childItem{
+  color: #bbbbbb;
+}
+.leftBar-childItem:hover{
+  background: #324556;
+}
+.leftBar-childItemActive{
+  color: #ffffff;
+  background: rgba(4, 191, 132, .8);
+  border-right: 5px solid #04bf84;
+}

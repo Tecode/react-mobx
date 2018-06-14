@@ -1,0 +1,54 @@
+.header-wrap{
+  color: #bbbbbb;
+  background: #191818;
+}
+.header-searchInput{
+  color: rgba(156, 131, 98, .3) !important;
+  border-bottom: 1px solid rgba(156, 131, 98, .3) !important;
+}
+.header-searchInput:hover{
+  border-bottom: 1px solid rgba(156, 131, 98, .3) !important;
+}
+.header-searchInput:focus{
+  color: #bbbbbb !important;
+  border-bottom: 1px solid #9c8362 !important;
+}
+.header-searchIcon{
+  color: #9c8362;
+}
+.header-userIcon{
+  background: url(../../images/1.6/Header/user3.png) no-repeat;
+}
+.header-logout:hover{
+  background: #000;
+}
+.header-clockIcon{
+  background: url(../../images/1.6/Header/clock3.png) no-repeat;
+}
+.header-appCodeBox{
+  background: url(../../images/1.6/Header/appIcon3.png) 20px 22px no-repeat;
+}
+.header-hrVertical{
+  border-right: 1px solid #000;
+}
+.leftBar-wrap{
+  color: #ffffff;
+  background: #383030;
+}
+.leftBar-parentItem{
+  color: #bbbbbb;
+}
+.leftBar-childBox{
+  border-bottom: 1px solid #282828;
+}
+.leftBar-childItem{
+  color: #bbbbbb;
+}
+.leftBar-childItem:hover{
+  background: #282828;
+}
+.leftBar-childItemActive{
+  color: #ffffff;
+  background: rgba(156, 131, 98, .8);
+  border-right: 5px solid #9c8362;
+}

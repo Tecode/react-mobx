@@ -1,0 +1,54 @@
+.header-wrap{
+  color: #bbbbbb;
+  background: #23262e;
+}
+.header-searchInput{
+  color: rgba(52, 131, 233, 0.3) !important;
+  border-bottom: 1px solid rgba(52, 131, 233, 0.3) !important;
+}
+.header-searchInput:hover{
+  border-bottom: 1px solid rgba(52, 131, 233, 0.3) !important;
+}
+.header-searchInput:focus{
+  color: #bbbbbb !important;
+  border-bottom: 1px solid #3483e9 !important;
+}
+.header-searchIcon{
+  color: #3483e9;
+}
+.header-userIcon{
+  background: url(../../images/1.6/Header/user1.png) no-repeat;
+}
+.header-logout:hover{
+  background: #181e28;
+}
+.header-clockIcon{
+  background: url(../../images/1.6/Header/clock1.png) no-repeat;
+}
+.header-appCodeBox{
+  background: url(../../images/1.6/Header/appIcon1.png) 20px 22px no-repeat;
+}
+.header-hrVertical{
+  border-right: 1px solid #181e28;
+}
+.leftBar-wrap{
+  color: #ffffff;
+  background: #333746;
+}
+.leftBar-parentItem{
+  color: #bbbbbb;
+}
+.leftBar-childBox{
+  border-bottom: 1px solid #2e3241;
+}
+.leftBar-childItem{
+  color: #bbbbbb;
+}
+.leftBar-childItem:hover{
+  background: #2e3241;
+}
+.leftBar-childItemActive{
+  color: #ffffff;
+  background: rgba(52, 131, 233, 0.8);
+  border-right: 5px solid #3483e9;
+}
