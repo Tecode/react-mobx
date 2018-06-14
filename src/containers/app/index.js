@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 import styles from './index.less';
-// import NavBar from 'components/navBar';
+import NavBar from 'components/NavBar';
 // import Modal from 'components/common/Modal';
 // import Message from 'components/common/Message';
 
@@ -26,7 +26,7 @@ export default class App extends Component {
       <React.Fragment>
         <div className={styles.wrap} id="appWrap">
           {false && <DevTools />}
-          {/* <NavBar/> */}
+          <NavBar/>
           {/* <Modal modalStore={this.props.modalStore}/> */}
           {/* <Message messageStore={this.props.messageStore}/> */}
           <div className={styles.content}>
