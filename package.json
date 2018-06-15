@@ -41,7 +41,7 @@
   ],
   "betterScripts": {
     "start-dev": {
-      "command": "supervisor ./bin/server.js",
+      "command": "nodemon ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
@@ -132,6 +132,7 @@
     "moment-range": "2.2.0",
     "morgan": "1.8.1",
     "node-uuid": "1.4.7",
+    "nodemon": "^1.17.5",
     "object-assign": "4.1.1",
     "pathval": "^1.1.0",
     "plop": "1.7.4",

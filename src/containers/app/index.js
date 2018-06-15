@@ -34,7 +34,7 @@ export default class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/article" component={Article} />
               {/*<Route exact path="/users" name="home-users" component={NotFound} />*/}
-              <Redirect to="/article" />
+              <Redirect to="/home" />
             </Switch>
           </NavBar>
         </div>
