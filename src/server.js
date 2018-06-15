@@ -14,8 +14,8 @@ import logger from 'morgan';
 import { StaticRouter } from 'react-router';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Routes from './routes';
-import { RouterStore } from 'mobx-react-router';
 import * as allStores from 'stores';
+import { parseUrl } from 'query-string';
 
 useStaticRendering(true);
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -43,9 +43,11 @@ app.get('*', (req, res) => {
   }
   console.log('路由被match', url.parse(req.url));
   /*服务端注入RouterStore*/
-  const routingStore = new RouterStore();
   const context = {};
-  allStores.routing = routingStore;
+  allStores.location = {
+    pathname: url.parse(req.url).pathname,
+    query: parseUrl(req.url).query
+  };
   const component = (
     <Provider {...allStores}>
       <StaticRouter location={req.url} context={context}>

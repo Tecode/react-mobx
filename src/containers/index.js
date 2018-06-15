@@ -1,3 +1,3 @@
 export LoginForm from './loginForm';
-export HomePage from './homePage';
+export App from './app';
 // append here from plop
