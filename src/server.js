@@ -36,8 +36,15 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 // 编辑器图片上传
 app.post('/upload_image', function(req, res) {
+  const options = {
+    validation: {
+      'allowedExts': ['gif', 'jpeg', 'jpg', 'png', 'svg', 'blob'],
+      'allowedMimeTypes': ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/svg+xml'],
+      'resize': [800, 600]
+    }
+  };
   // Store image.
-  FroalaEditor.Image.upload(req, '../static/uploadImages/', function(err, data) {
+  FroalaEditor.Image.upload(req, '../static/uploadImages/', options, function(err, data) {
     // Return data.
     if (err) {
       return res.send(JSON.stringify(err));

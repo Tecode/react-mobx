@@ -5,10 +5,11 @@ class ArticleStore {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: true,
     heightMin: 600,
-    widthMax: 600,
+    width: 1140,
     language: 'zh_cn',
     dragInline: false,
-    imageUploadURL: '/upload_image'
+    imageUploadURL: '/upload_image',
+    imageMaxSize: 1024 * 1024 * 0.4
   };
   @observable htmlContent = '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n浦发银行(600000) 投资要点 事项</p>';
   @action.bound getHtml() {
