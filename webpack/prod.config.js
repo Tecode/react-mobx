@@ -39,7 +39,8 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css?modules&importLoaders=2&sourceMap&localIdentName=[path]___[name]__[local]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap')
       },
       {
-        test: /\.js$/, exclude: /node_modules/,
+        test: /\.js$/,
+        exclude: /node_modules/,
         loaders: [strip.loader('console.log'), 'babel']
       },
       {
