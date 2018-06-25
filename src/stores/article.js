@@ -5,7 +5,6 @@ class ArticleStore {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: true,
     heightMin: 600,
-    width: 1140,
     language: 'zh_cn',
     dragInline: false,
     imageUploadURL: '/upload_image',

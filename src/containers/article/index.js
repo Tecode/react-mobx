@@ -22,7 +22,7 @@ export default class HomePage extends Component {
   render() {
     const { articleStore } = this.props;
     return (
-    <React.Fragment>
+    <div className={styles.container}>
       <FroalaEditor
         tag="textarea"
         config={articleStore.editorConfig}
@@ -36,7 +36,7 @@ export default class HomePage extends Component {
         loading={false}>
         保存
       </Button>
-    </React.Fragment>
+    </div>
     );
   }
 }
