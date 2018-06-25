@@ -31,7 +31,7 @@
     "start_remote_prod": "concurrent --kill-others \"better-npm-run start-remote-prod\"",
     "stop_remote_prod": "pm2 delete travel_remote_prod",
     "build": "better-npm-run build",
-    "lint": "eslint --ext .js -c .eslintrc src",
+    "lint": "eslint --ext .jsx -c .eslintrc src",
     "start-dev": "better-npm-run start-dev",
     "watch-client": "better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\""
@@ -157,7 +157,8 @@
     "url-loader": "0.5.7",
     "warning": "2.1.0",
     "webpack-isomorphic-tools": "2.2.18",
-    "webpack-visualizer-plugin": "0.1.10"
+    "webpack-visualizer-plugin": "0.1.10",
+    "wysiwyg-editor-node-sdk": "^2.3.4"
   },
   "devDependencies": {
     "autoprefixer-loader": "3.1.0",

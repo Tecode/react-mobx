@@ -16,6 +16,7 @@ import { Provider, useStaticRendering } from 'mobx-react';
 import Routes from './routes';
 import * as allStores from 'stores';
 import { parseUrl } from 'query-string';
+import FroalaEditor from 'wysiwyg-editor-node-sdk/lib/froalaEditor';
 
 useStaticRendering(true);
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -33,6 +34,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(logger('dev'));
+// 编辑器图片上传
+app.post('/upload_image', function(req, res) {
+  // Store image.
+  FroalaEditor.Image.upload(req, '../static/uploadImages/', function(err, data) {
+    // Return data.
+    if (err) {
+      return res.send(JSON.stringify(err));
+    }
+    data.link = `http://localhost:3001/${data.link.slice(10)}`;
+    res.send(data);
+  });
+});
 app.get('*', (req, res) => {
   axios.defaults.headers.common['scm-token'] = req.cookies['scm-token'] || {};
   if (__DEVELOPMENT__) {
