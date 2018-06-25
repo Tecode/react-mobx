@@ -33,7 +33,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(logger('dev'));
-
 app.get('*', (req, res) => {
   axios.defaults.headers.common['scm-token'] = req.cookies['scm-token'] || {};
   if (__DEVELOPMENT__) {

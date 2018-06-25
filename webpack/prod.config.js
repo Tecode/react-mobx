@@ -63,6 +63,10 @@ module.exports = {
   },
   plugins: [
     new CleanPlugin([assetsPath], { root: projectRootPath }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     new Visualizer(),
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),

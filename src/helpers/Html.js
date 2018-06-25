@@ -58,6 +58,10 @@ export default class Html extends Component {
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
         <link href="../vendors/css/preload.css"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_style.min.css" rel="stylesheet" type="text/css" />
         {
           Object.keys(assets.styles).map((style, key) =>
             <link href={assets.styles[style]} key={key}

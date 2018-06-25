@@ -91,7 +91,8 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']
+        loaders: ['babel?' + JSON.stringify(babelLoaderQuery)]
+        // loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']
       },
       {
         test: /\.json$/,
@@ -113,6 +114,10 @@ module.exports = {
   },
   plugins: [
     new Visualizer(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin('common.js'),
