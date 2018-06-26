@@ -9,6 +9,8 @@ import Icon from 'antd/lib/icon';
 import Tag from 'antd/lib/tag';
 import Tooltip from 'antd/lib/tooltip';
 import Radio from 'antd/lib/radio';
+import { toJS } from 'mobx';
+import { defaultApi } from 'api';
 import styles from './index.less';
 
 
@@ -17,7 +19,16 @@ const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
 function LeftContent({form, articleStore}) {
-  const { tags, inputVisible, inputValue, setValue, getHtml, typeValue } = articleStore;
+  const {
+    tags,
+    inputVisible,
+    inputValue,
+    setValue,
+    getHtml,
+    handleChange,
+    fileList,
+    typeValue
+  } = articleStore;
   const discription = () => {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.'
@@ -40,13 +51,6 @@ function LeftContent({form, articleStore}) {
         }
       },
     );
-  };
-  const normFile = (event) => {
-    console.log('Upload event:', event);
-    if (Array.isArray(event)) {
-      return event;
-    }
-    return event && event.fileList;
   };
   const handleInputConfirm = () => {
     let newTags = tags;
@@ -97,10 +101,10 @@ function LeftContent({form, articleStore}) {
       </FormItem>
       <FormItem {...formItemLayout} label="标签">
         <React.Fragment>
-          {tags.map((tag, index) => {
+          {tags.map((tag) => {
             const isLongTag = tag.length > 20;
             const tagElem = (
-              <Tag key={tag} closable={index !== 0} afterClose={handleClose.bind(null, tag)}>
+              <Tag key={tag} closable afterClose={handleClose.bind(null, tag)}>
                 {isLongTag ? `${tag.slice(0, 20)}...` : tag}
               </Tag>
             );
@@ -139,16 +143,17 @@ function LeftContent({form, articleStore}) {
         label="封面"
         extra="封面图片"
       >
-        {form.getFieldDecorator('upload', {
-          valuePropName: 'fileList',
-          getValueFromEvent: normFile,
-        })(
-          <Upload name="logo" action="/upload" listType="picture">
+          <Upload
+            fileList={toJS(fileList)}
+            onChange={handleChange}
+            multiple={typeValue === 'ppt'}
+            action={`${defaultApi.prefix}/uploadimage`}
+            supportServerRender
+            listType="picture">
             <Button>
               <Icon type="upload" /> 选择图片
             </Button>
           </Upload>
-        )}
       </FormItem>
       <FormItem {...formTailLayout}>
         <Button
