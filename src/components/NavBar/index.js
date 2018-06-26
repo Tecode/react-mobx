@@ -33,16 +33,16 @@ class NavBar extends Component {
         <Sider trigger={null} collapsible style={{ background: '#fff' }} collapsed={this.state.collapsed}>
           <div className={styles.logo}>Logo</div>
           <Menu theme="light" mode="inline" defaultSelectedKeys={[pathname]} style={{ height: '100%' }}>
-            <Menu.Item key="/article">
-              <Link to="/article">
-                <Icon type="form" />
-                <span>新增文章</span>
-              </Link>
-            </Menu.Item>
             <Menu.Item key="/home">
               <Link to="/home">
                 <Icon type="video-camera" />
                 <span>首页</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/article">
+              <Link to="/article">
+                <Icon type="form" />
+                <span>新增文章</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
