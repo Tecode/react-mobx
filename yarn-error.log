@@ -2,7 +2,7 @@ Arguments:
   /home/xm/.nvm/versions/node/v8.5.0/bin/node /usr/local/bin/yarn
 
 PATH: 
-  /home/xm//home/xm/Application/WebStorm-171.3780.79/bin:/home/xm/.nvm/versions/node/v8.5.0/bin:/home/xm//home/xm/Application/WebStorm-171.3780.79/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  /home/xm/.nvm/versions/node/v8.5.0/bin:/home/xm//home/xm/Application/WebStorm-171.3780.79/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
   0.21.3
@@ -47,7 +47,7 @@ npm manifest:
       "start_remote_prod": "concurrent --kill-others \"better-npm-run start-remote-prod\"",
       "stop_remote_prod": "pm2 delete travel_remote_prod",
       "build": "better-npm-run build",
-      "lint": "eslint --ext .js -c .eslintrc src",
+      "lint": "eslint --ext .jsx -c .eslintrc src",
       "start-dev": "better-npm-run start-dev",
       "watch-client": "better-npm-run watch-client",
       "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\""
@@ -159,6 +159,7 @@ npm manifest:
       "prop-types": "^15.6.1",
       "query-string": "^6.1.0",
       "react": "^16.4.1",
+      "react-bootstrap": "^0.32.1",
       "react-css-modules": "3.7.6",
       "react-dom": "^16.4.1",
       "react-froala-wysiwyg": "^2.8.4",
@@ -173,7 +174,8 @@ npm manifest:
       "url-loader": "0.5.7",
       "warning": "2.1.0",
       "webpack-isomorphic-tools": "2.2.18",
-      "webpack-visualizer-plugin": "0.1.10"
+      "webpack-visualizer-plugin": "0.1.10",
+      "wysiwyg-editor-node-sdk": "^2.3.4"
     },
     "devDependencies": {
       "autoprefixer-loader": "3.1.0",
@@ -205,7 +207,8 @@ npm manifest:
       "timekeeper": "0.0.5",
       "webpack": "1.12.9",
       "webpack-dev-middleware": "1.4.0",
-      "webpack-hot-middleware": "2.5.0"
+      "webpack-hot-middleware": "2.5.0",
+      "window": "^4.2.5"
     },
     "engines": {
       "node": ">=5.6.0"
@@ -1287,6 +1290,10 @@ Lockfile:
       lodash "^4.17.4"
       to-fast-properties "^1.0.3"
   
+  babel@^6.23.0:
+    version "6.23.0"
+    resolved "https://registry.yarnpkg.com/babel/-/babel-6.23.0.tgz#d0d1e7d803e974765beea3232d4e153c0efb90f4"
+  
   babylon@^6.0.18, babylon@^6.18.0, babylon@^6.7.0:
     version "6.18.0"
     resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
@@ -1670,10 +1677,6 @@ Lockfile:
   clone@^1.0.2:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
-  
-  clone@^2.1.1:
-    version "2.1.2"
-    resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   
   co@^4.6.0:
     version "4.6.0"
@@ -2553,10 +2556,6 @@ Lockfile:
       stream-combiner "~0.0.4"
       through "~2.3.1"
   
-  eventemitter3@^2.0.3:
-    version "2.0.3"
-    resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
-  
   eventlistener@0.0.1:
     version "0.0.1"
     resolved "https://registry.yarnpkg.com/eventlistener/-/eventlistener-0.0.1.tgz#ed2baabb852227af2bcf889152c72c63ca532eb8"
@@ -2677,7 +2676,7 @@ Lockfile:
       assign-symbols "^1.0.0"
       is-extendable "^1.0.1"
   
-  extend@^3.0.0, extend@^3.0.1, extend@~3.0.1:
+  extend@^3.0.0, extend@~3.0.1:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
   
@@ -2722,10 +2721,6 @@ Lockfile:
   fast-deep-equal@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
-  
-  fast-diff@1.1.2:
-    version "1.1.2"
-    resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
   
   fast-json-stable-stringify@^2.0.0:
     version "2.0.0"
@@ -2862,6 +2857,10 @@ Lockfile:
     dependencies:
       debug "^2.2.0"
   
+  font-awesome@>=4.4.0, font-awesome@^4.7.0:
+    version "4.7.0"
+    resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+  
   for-in@^1.0.1, for-in@^1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -2913,6 +2912,13 @@ Lockfile:
   fresh@0.5.2:
     version "0.5.2"
     resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
+  
+  froala-editor@2.8.4:
+    version "2.8.4"
+    resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-2.8.4.tgz#b50c20799218e9e02e195d0616decfd5679c4b53"
+    dependencies:
+      font-awesome ">=4.4.0"
+      jquery ">=1.11.0"
   
   from@~0:
     version "0.1.7"
@@ -3742,6 +3748,10 @@ Lockfile:
   isstream@~0.1.2:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
+  
+  jquery@>=1.11.0, jquery@^3.3.1:
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   
   js-base64@^2.1.9:
     version "2.4.5"
@@ -4809,10 +4819,6 @@ Lockfile:
     dependencies:
       sentence-case "^1.1.2"
   
-  parchment@^1.1.4:
-    version "1.1.4"
-    resolved "https://registry.yarnpkg.com/parchment/-/parchment-1.1.4.tgz#aeded7ab938fe921d4c34bc339ce1168bc2ffde5"
-  
   parse-filepath@^1.0.1:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/parse-filepath/-/parse-filepath-1.0.2.tgz#a632127f53aaf3d15876f5872f3ffac763d6c891"
@@ -5331,25 +5337,6 @@ Lockfile:
     version "0.2.0"
     resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   
-  quill-delta@^3.6.2:
-    version "3.6.2"
-    resolved "https://registry.yarnpkg.com/quill-delta/-/quill-delta-3.6.2.tgz#76eed0163b8b09a076fba6ade29307c42b40b8d8"
-    dependencies:
-      deep-equal "^1.0.1"
-      extend "^3.0.1"
-      fast-diff "1.1.2"
-  
-  quill@^1.3.6:
-    version "1.3.6"
-    resolved "https://registry.yarnpkg.com/quill/-/quill-1.3.6.tgz#99f4de1fee85925a0d7d4163b6d8328f23317a4d"
-    dependencies:
-      clone "^2.1.1"
-      deep-equal "^1.0.1"
-      eventemitter3 "^2.0.3"
-      extend "^3.0.1"
-      parchment "^1.1.4"
-      quill-delta "^3.6.2"
-  
   raf@^3.4.0:
     version "3.4.0"
     resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
@@ -5758,6 +5745,14 @@ Lockfile:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
       prop-types "^15.6.0"
+  
+  react-froala-wysiwyg@^2.8.4:
+    version "2.8.4"
+    resolved "https://registry.yarnpkg.com/react-froala-wysiwyg/-/react-froala-wysiwyg-2.8.4.tgz#8a6ecc1aa70ccfd275bd755dd671e04430576c36"
+    dependencies:
+      babel "^6.23.0"
+      create-react-class "^15.5.2"
+      froala-editor "2.8.4"
   
   react-helmet@^5.2.0:
     version "5.2.0"
@@ -7152,4 +7147,4 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: EEXIST: file already exists, mkdir '/home/xm/testFile/react-mobx/node_modules/css-loader'
+  Error: EEXIST: file already exists, mkdir '/home/xm/testFile/react-mobx/node_modules/escodegen'

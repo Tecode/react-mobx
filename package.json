@@ -143,6 +143,7 @@
     "prop-types": "^15.6.1",
     "query-string": "^6.1.0",
     "react": "^16.4.1",
+    "react-bootstrap": "^0.32.1",
     "react-css-modules": "3.7.6",
     "react-dom": "^16.4.1",
     "react-froala-wysiwyg": "^2.8.4",
