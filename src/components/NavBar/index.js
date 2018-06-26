@@ -47,7 +47,7 @@ class NavBar extends Component {
             </Menu.Item>
             <Menu.Item key="3">
               <Icon type="upload" />
-              <span>nav 3</span>
+              <span>用户管理</span>
             </Menu.Item>
           </Menu>
         </Sider>

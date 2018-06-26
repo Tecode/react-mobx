@@ -8,13 +8,16 @@ import Upload from 'antd/lib/upload';
 import Icon from 'antd/lib/icon';
 import Tag from 'antd/lib/tag';
 import Tooltip from 'antd/lib/tooltip';
-const { TextArea } = Input;
+import Radio from 'antd/lib/radio';
 import styles from './index.less';
 
+
+const { TextArea } = Input;
+const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
 function LeftContent({form, articleStore}) {
-  const { tags, inputVisible, inputValue, setValue, getHtml } = articleStore;
+  const { tags, inputVisible, inputValue, setValue, getHtml, typeValue } = articleStore;
   const discription = () => {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.'
@@ -66,6 +69,9 @@ function LeftContent({form, articleStore}) {
     setTimeout(()=> {
       document.getElementById('inputRef').focus();
     });
+  };
+  const onChange = (event) => {
+    setValue('typeValue', event.target.value);
   };
   return (
     <div className={styles.LeftContent}>
@@ -121,6 +127,12 @@ function LeftContent({form, articleStore}) {
             </Tag>
           )}
         </React.Fragment>
+      </FormItem>
+      <FormItem {...formItemLayout} label="类型">
+        <RadioGroup onChange={onChange} value={typeValue}>
+          <Radio value="article">文章</Radio>
+          <Radio value="ppt">ppt</Radio>
+        </RadioGroup>
       </FormItem>
       <FormItem
         {...formItemLayout}
