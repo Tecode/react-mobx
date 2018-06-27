@@ -24,12 +24,14 @@ function LeftContent({form, articleStore}) {
     inputVisible,
     inputValue,
     setValue,
-    getHtml,
+    saveArticle,
     fileList,
     handleChange,
     fileChange,
     imageList,
     fileDowload,
+    link,
+    title,
     typeValue
   } = articleStore;
   const discription = () => {
@@ -47,11 +49,14 @@ function LeftContent({form, articleStore}) {
     wrapperCol: {span: 6, offset: 6},
   };
   const checkValid = () => {
+    form.getFieldValue((data) => {
+      console.log(data);
+    });
     form.validateFields(
       (err) => {
         if (!err) {
           console.info('success');
-          getHtml();
+          saveArticle();
         }
       },
     );
@@ -89,7 +94,7 @@ function LeftContent({form, articleStore}) {
     if (fileDowload === 'link') {
       return (
         <FormItem {...formItemLayout} label="链接地址">
-          {form.getFieldDecorator('title', {
+          {form.getFieldDecorator('link', {
             rules: [{
               required: true,
               message: '链接地址不能为空',
@@ -107,10 +112,8 @@ function LeftContent({form, articleStore}) {
         extra="上传压缩文件"
       >
         <Upload
-          name="image"
           fileList={toJS(fileList)}
           onChange={fileChange}
-          multiple={typeValue === 'ppt'}
           action={`${defaultApi.prefix}/uploadfile`}
           listType="picture">
           <Button>
@@ -129,7 +132,7 @@ function LeftContent({form, articleStore}) {
             message: '文章标题不能为空',
           }],
         })(
-          <Input placeholder="文章标题"/>
+          <Input value={454} placeholder="文章标题"/>
         )}
       </FormItem>
       <FormItem {...formItemLayout} label="描述">

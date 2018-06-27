@@ -15,6 +15,9 @@ import * as allStores from 'stores';
 
 combineServerData(allStores, window.__data);
 const dest = document.getElementById('content');
+// axios配置
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiMjAxOCIsInVuaXF1ZV9uYW1lIjoiMjAxOCIsInVzZXJpZCI6IjIwMTgiLCJpc3MiOiJyZXN0YXBpdXNlciIsImF1ZCI6IjA5OGY2YmNkNDYyMWQzNzNjYWRlNGU4MzI2MjdiNGY2IiwiZXhwIjoxNTI2OTYwNjEzLCJuYmYiOjE1MjY3ODc4MTN9.NhRUDwOLxuLLgUiAcR9cjZlqaeqGLNKnfqDGc0_dUZU';
 axios.interceptors.request.use((axiosConfig) => {
   // Do something before request is sent
   axiosConfig.headers['sc-id'] = `web-${Uuid.v4()}`;
