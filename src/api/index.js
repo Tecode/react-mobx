@@ -1,2 +1,2 @@
-export * as rechargeApi from './recharge';
+export * as defaultApi from './default';
 // append here from plop
