@@ -16,6 +16,7 @@ class ArticleStore {
   @observable tags = [];
   @observable inputValue = '';
   @observable title = '';
+  @observable discription = '';
   // 对文件定义
   @observable fileList = [
     // {

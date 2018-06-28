@@ -32,9 +32,10 @@ function LeftContent({form, articleStore}) {
     fileDowload,
     link,
     title,
+    discription,
     typeValue
   } = articleStore;
-  const discription = () => {
+  const discriptionFun = () => {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.',
       '文章只允许上传一张图片，PPT可以上传多张图片'
@@ -89,18 +90,42 @@ function LeftContent({form, articleStore}) {
   const typeChange = (event) => {
     setValue('fileDowload', event.target.value);
   };
+  // 设置form表单数据
+  const handleFormChange = (key, event) => {
+    setValue(key, event.target.value);
+    switch (key) {
+      case 'link':
+        form.setFieldsValue({
+          link: event.target.value,
+        });
+        return;
+      case 'title':
+        form.setFieldsValue({
+          title: event.target.value,
+        });
+        return;
+      case 'discription':
+        form.setFieldsValue({
+          discription: event.target.value,
+        });
+        return;
+      default:
+        return;
+    }
+  };
   // 显示上传文件还是填写链接
   const moduleDisplay = () => {
     if (fileDowload === 'link') {
       return (
         <FormItem {...formItemLayout} label="链接地址">
           {form.getFieldDecorator('link', {
+            initialValue: link,
             rules: [{
               required: true,
               message: '链接地址不能为空',
             }],
           })(
-            <Input placeholder="链接地址"/>
+            <Input onChange={handleFormChange.bind(this, 'link')} placeholder="链接地址"/>
           )}
         </FormItem>
       );
@@ -127,22 +152,24 @@ function LeftContent({form, articleStore}) {
     <div className={styles.LeftContent}>
       <FormItem {...formItemLayout} label="标题">
         {form.getFieldDecorator('title', {
+          initialValue: title,
           rules: [{
             required: true,
             message: '文章标题不能为空',
           }],
         })(
-          <Input value={454} placeholder="文章标题"/>
+          <Input onChange={handleFormChange.bind(this, 'title')} placeholder="文章标题"/>
         )}
       </FormItem>
       <FormItem {...formItemLayout} label="描述">
         {form.getFieldDecorator('description', {
+          initialValue: discription,
           rules: [{
             required: true,
             message: '描述信息不能为空',
           }],
         })(
-          <TextArea placeholder="描述信息"/>
+          <TextArea onChange={handleFormChange.bind(this, 'description')} placeholder="描述信息"/>
         )}
       </FormItem>
       <FormItem {...formItemLayout} label="标签">
@@ -225,7 +252,7 @@ function LeftContent({form, articleStore}) {
       </FormItem>
       <Divider>说明</Divider>
       <ul>
-        { discription() }
+        { discriptionFun() }
       </ul>
     </div>
   );
