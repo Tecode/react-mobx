@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import Divider from 'antd/lib/divider';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
@@ -9,12 +9,12 @@ import Icon from 'antd/lib/icon';
 import Tag from 'antd/lib/tag';
 import Tooltip from 'antd/lib/tooltip';
 import Radio from 'antd/lib/radio';
-import { toJS } from 'mobx';
-import { defaultApi } from 'api';
+import {defaultApi} from 'api';
+import {toJS} from 'mobx';
 import styles from './index.less';
 
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
@@ -24,30 +24,38 @@ function LeftContent({form, articleStore}) {
     inputVisible,
     inputValue,
     setValue,
-    getHtml,
-    handleChange,
+    saveArticle,
     fileList,
+    handleChange,
+    fileChange,
+    imageList,
+    fileDowload,
+    link,
+    title,
+    description,
+    requestLoading,
     typeValue
   } = articleStore;
-  const discription = () => {
+  const descriptionFun = () => {
     return ([
-      '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.'
+      '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.',
+      '文章只允许上传一张图片，PPT可以上传多张图片'
     ].map((value, key) => <li key={key}>{value}</li>));
   };
   const formItemLayout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
+    labelCol: {span: 6},
+    wrapperCol: {span: 18},
   };
   const formTailLayout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 6, offset: 6 },
+    labelCol: {span: 6},
+    wrapperCol: {span: 6, offset: 6},
   };
   const checkValid = () => {
     form.validateFields(
       (err) => {
         if (!err) {
           console.info('success');
-          getHtml();
+          saveArticle();
         }
       },
     );
@@ -70,33 +78,96 @@ function LeftContent({form, articleStore}) {
   };
   const showInput = () => {
     setValue('inputVisible', true);
-    setTimeout(()=> {
+    setTimeout(() => {
       document.getElementById('inputRef').focus();
     });
   };
   const onChange = (event) => {
     setValue('typeValue', event.target.value);
   };
+  const typeChange = (event) => {
+    setValue('fileDowload', event.target.value);
+  };
+  // 设置form表单数据
+  const handleFormChange = (key, event) => {
+    setValue(key, event.target.value);
+    switch (key) {
+      case 'link':
+        form.setFieldsValue({
+          link: event.target.value,
+        });
+        return;
+      case 'title':
+        form.setFieldsValue({
+          title: event.target.value,
+        });
+        return;
+      case 'description':
+        form.setFieldsValue({
+          description: event.target.value,
+        });
+        return;
+      default:
+        return;
+    }
+  };
+  // 显示上传文件还是填写链接
+  const moduleDisplay = () => {
+    if (fileDowload === 'link') {
+      return (
+        <FormItem {...formItemLayout} label="链接地址">
+          {form.getFieldDecorator('link', {
+            initialValue: link,
+            rules: [{
+              required: true,
+              message: '链接地址不能为空',
+            }],
+          })(
+            <Input onChange={handleFormChange.bind(this, 'link')} placeholder="链接地址"/>
+          )}
+        </FormItem>
+      );
+    }
+    return (
+      <FormItem
+        {...formItemLayout}
+        label="压缩文件"
+        extra="上传压缩文件"
+      >
+        <Upload
+          fileList={toJS(fileList)}
+          onChange={fileChange}
+          action={`${defaultApi.prefix}/uploadfile`}
+          listType="picture">
+          <Button>
+            <Icon type="upload"/> 选择文件
+          </Button>
+        </Upload>
+      </FormItem>
+    );
+  };
   return (
     <div className={styles.LeftContent}>
       <FormItem {...formItemLayout} label="标题">
         {form.getFieldDecorator('title', {
+          initialValue: title,
           rules: [{
             required: true,
             message: '文章标题不能为空',
           }],
         })(
-          <Input placeholder="文章标题" />
+          <Input onChange={handleFormChange.bind(this, 'title')} placeholder="文章标题"/>
         )}
       </FormItem>
       <FormItem {...formItemLayout} label="描述">
         {form.getFieldDecorator('description', {
+          initialValue: description,
           rules: [{
             required: true,
             message: '描述信息不能为空',
           }],
         })(
-          <TextArea placeholder="描述信息" />
+          <TextArea onChange={handleFormChange.bind(this, 'description')} placeholder="描述信息"/>
         )}
       </FormItem>
       <FormItem {...formItemLayout} label="标签">
@@ -115,7 +186,7 @@ function LeftContent({form, articleStore}) {
               id="inputRef"
               type="text"
               size="small"
-              style={{ width: 78 }}
+              style={{width: 78}}
               value={inputValue}
               onChange={handleInputChange}
               onBlur={handleInputConfirm}
@@ -125,9 +196,9 @@ function LeftContent({form, articleStore}) {
           {!inputVisible && (
             <Tag
               onClick={showInput}
-              style={{ background: '#fff', borderStyle: 'dashed' }}
+              style={{background: '#fff', borderStyle: 'dashed'}}
             >
-              <Icon type="plus" /> 新标签
+              <Icon type="plus"/> 新标签
             </Tag>
           )}
         </React.Fragment>
@@ -135,37 +206,51 @@ function LeftContent({form, articleStore}) {
       <FormItem {...formItemLayout} label="类型">
         <RadioGroup onChange={onChange} value={typeValue}>
           <Radio value="article">文章</Radio>
-          <Radio value="ppt">ppt</Radio>
+          <Radio value="ppt">PPT</Radio>
+          <Radio value="html">HTML模板</Radio>
         </RadioGroup>
       </FormItem>
       <FormItem
         {...formItemLayout}
-        label="封面"
-        extra="封面图片"
+        label={typeValue === 'article' ? '封面' : 'PPT图片'}
+        extra={typeValue === 'article' ? '封面图片只能选取一张' : 'PPT图片可以选择多张'}
       >
-          <Upload
-            fileList={toJS(fileList)}
-            onChange={handleChange}
-            multiple={typeValue === 'ppt'}
-            action={`${defaultApi.prefix}/uploadimage`}
-            supportServerRender
-            listType="picture">
-            <Button>
-              <Icon type="upload" /> 选择图片
-            </Button>
-          </Upload>
+        <Upload
+          name="image"
+          fileList={toJS(imageList)}
+          onChange={handleChange}
+          multiple={typeValue === 'ppt'}
+          action={`${defaultApi.prefix}/uploadimage`}
+          accept="image/*"
+          listType="picture">
+          <Button>
+            <Icon type="upload"/> 选择图片
+          </Button>
+        </Upload>
       </FormItem>
+      {
+        typeValue === 'ppt' || typeValue === 'html' ?
+          <React.Fragment>
+            <FormItem {...formItemLayout} label="下载方式">
+              <RadioGroup onChange={typeChange} value={fileDowload}>
+                <Radio value="link">填写链接</Radio>
+                <Radio value="upload">上传文件</Radio>
+              </RadioGroup>
+            </FormItem>
+            { moduleDisplay() }
+          </React.Fragment> : null
+      }
       <FormItem {...formTailLayout}>
         <Button
           type="primary"
           onClick={checkValid}
-          loading={false}>
+          loading={requestLoading}>
           发布
         </Button>
       </FormItem>
       <Divider>说明</Divider>
       <ul>
-        { discription() }
+        { descriptionFun() }
       </ul>
     </div>
   );
