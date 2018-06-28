@@ -32,10 +32,11 @@ function LeftContent({form, articleStore}) {
     fileDowload,
     link,
     title,
-    discription,
+    description,
+    requestLoading,
     typeValue
   } = articleStore;
-  const discriptionFun = () => {
+  const descriptionFun = () => {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.',
       '文章只允许上传一张图片，PPT可以上传多张图片'
@@ -50,9 +51,6 @@ function LeftContent({form, articleStore}) {
     wrapperCol: {span: 6, offset: 6},
   };
   const checkValid = () => {
-    form.getFieldValue((data) => {
-      console.log(data);
-    });
     form.validateFields(
       (err) => {
         if (!err) {
@@ -104,9 +102,9 @@ function LeftContent({form, articleStore}) {
           title: event.target.value,
         });
         return;
-      case 'discription':
+      case 'description':
         form.setFieldsValue({
-          discription: event.target.value,
+          description: event.target.value,
         });
         return;
       default:
@@ -163,7 +161,7 @@ function LeftContent({form, articleStore}) {
       </FormItem>
       <FormItem {...formItemLayout} label="描述">
         {form.getFieldDecorator('description', {
-          initialValue: discription,
+          initialValue: description,
           rules: [{
             required: true,
             message: '描述信息不能为空',
@@ -246,13 +244,13 @@ function LeftContent({form, articleStore}) {
         <Button
           type="primary"
           onClick={checkValid}
-          loading={false}>
+          loading={requestLoading}>
           发布
         </Button>
       </FormItem>
       <Divider>说明</Divider>
       <ul>
-        { discriptionFun() }
+        { descriptionFun() }
       </ul>
     </div>
   );
