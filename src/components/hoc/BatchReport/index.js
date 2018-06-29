@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 
 function hoc(store) {
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     class BatchReport extends Component {
       static propTypes = {
-        routing: PropTypes.object,
         [store]: PropTypes.object,
-        companyHomeStore: PropTypes.object,
+        companyHomeStore: PropTypes.object
       };
       componentDidMount() {
         if (!this.props[store].isMount) {
@@ -17,9 +16,7 @@ function hoc(store) {
         }
       }
       render() {
-        return (
-          <WrappedComponent {...this.props} />
-        );
+        return <WrappedComponent {...this.props} />;
       }
     }
     return inject('companyHomeStore')(observer(BatchReport));

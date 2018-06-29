@@ -99,7 +99,7 @@
   },
   "dependencies": {
     "antd": "^3.6.2",
-    "axios": "0.15.3",
+    "axios": "0.17.1",
     "babel-core": "6.10.4",
     "babel-loader": "6.2.1",
     "babel-plugin-add-module-exports": "0.1.2",

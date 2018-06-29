@@ -9,9 +9,10 @@ import Icon from 'antd/lib/icon';
 import Tag from 'antd/lib/tag';
 import Tooltip from 'antd/lib/tooltip';
 import Radio from 'antd/lib/radio';
-import {defaultApi} from 'api';
+import { defaultApi } from 'api';
 import {toJS} from 'mobx';
 import styles from './index.less';
+import axios from 'axios';
 
 
 const {TextArea} = Input;
@@ -39,7 +40,8 @@ function LeftContent({form, articleStore}) {
   const descriptionFun = () => {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.',
-      '文章只允许上传一张图片，PPT可以上传多张图片'
+      '文章只允许上传一张图片，PPT可以上传多张图片',
+      '文件上传支持IE10以上浏览器'
     ].map((value, key) => <li key={key}>{value}</li>));
   };
   const formItemLayout = {
@@ -91,25 +93,9 @@ function LeftContent({form, articleStore}) {
   // 设置form表单数据
   const handleFormChange = (key, event) => {
     setValue(key, event.target.value);
-    switch (key) {
-      case 'link':
-        form.setFieldsValue({
-          link: event.target.value,
-        });
-        return;
-      case 'title':
-        form.setFieldsValue({
-          title: event.target.value,
-        });
-        return;
-      case 'description':
-        form.setFieldsValue({
-          description: event.target.value,
-        });
-        return;
-      default:
-        return;
-    }
+    form.setFieldsValue({
+      [key]: event.target.value,
+    });
   };
   // 显示上传文件还是填写链接
   const moduleDisplay = () => {
@@ -138,6 +124,7 @@ function LeftContent({form, articleStore}) {
           fileList={toJS(fileList)}
           onChange={fileChange}
           action={`${defaultApi.prefix}/uploadfile`}
+          headers={{Authorization: axios.defaults.headers.common.Authorization}}
           listType="picture">
           <Button>
             <Icon type="upload"/> 选择文件
@@ -218,6 +205,7 @@ function LeftContent({form, articleStore}) {
         <Upload
           name="image"
           fileList={toJS(imageList)}
+          headers={{Authorization: axios.defaults.headers.common.Authorization}}
           onChange={handleChange}
           multiple={typeValue === 'ppt'}
           action={`${defaultApi.prefix}/uploadimage`}

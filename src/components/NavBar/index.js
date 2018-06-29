@@ -39,15 +39,17 @@ class NavBar extends Component {
                 <span>首页</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="/article_list">
+              <Link to="/article_list">
+                <Icon type="profile" />
+                <span>文章列表</span>
+              </Link>
+            </Menu.Item>
             <Menu.Item key="/article">
               <Link to="/article">
                 <Icon type="form" />
                 <span>新增文章</span>
               </Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Icon type="upload" />
-              <span>用户管理</span>
             </Menu.Item>
           </Menu>
         </Sider>

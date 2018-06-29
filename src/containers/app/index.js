@@ -7,6 +7,9 @@ import styles from './index.less';
 import NavBar from 'components/NavBar';
 import HomePage from '../homePage';
 import Article from '../article';
+import ArticleList from '../articleList';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import LocaleProvider from 'antd/lib/locale-provider';
 // import Modal from 'components/common/Modal';
 // import Message from 'components/common/Message';
 
@@ -26,19 +29,20 @@ export default class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <LocaleProvider locale={zhCN}>
         <div className={styles.wrap} id="appWrap">
           {false && <DevTools />}
           <NavBar>
             <Switch>
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/article" component={Article} />
+              <Route exact path="/article_list" component={ArticleList} />
               {/*<Route exact path="/users" name="home-users" component={NotFound} />*/}
               <Redirect to="/home" />
             </Switch>
           </NavBar>
         </div>
-      </React.Fragment>
+      </LocaleProvider>
     );
   }
 }
