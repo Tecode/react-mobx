@@ -1,5 +1,5 @@
 import {observable, action, toJS} from 'mobx';
-import { articleApi } from 'api';
+import { articleApi, defaultApi } from 'api';
 import { message } from 'antd';
 import browserHistory from 'helpers/history';
 
@@ -55,7 +55,7 @@ class ArticleStore {
     fileList = fileList.map((file) => {
       if (file.response) {
         // Component will show file.url as link
-        file.url = file.response.url;
+        file.url = defaultApi.rearEndImageUrl + file.response.url;
       }
       return file;
     });
@@ -80,7 +80,7 @@ class ArticleStore {
     fileList = fileList.map((file) => {
       if (file.response) {
         // Component will show file.url as link
-        file.url = file.response.url;
+        file.url = defaultApi.rearEndFileUrl + file.response.url;
       }
       return file;
     });
@@ -124,8 +124,8 @@ class ArticleStore {
           description: this.description,
           link: this.link,
           tags: this.tags.join(','),
-          file: toJS(this.fileList)[0] && toJS(this.fileList)[0].url,
-          images: toJS(this.imageList).map(item => item.url).join(','),
+          file: toJS(this.fileList)[0] && toJS(this.fileList)[0].url.replace(defaultApi.rearEndFileUrl, ''),
+          images: toJS(this.imageList).map(item => item.url.replace(defaultApi.rearEndImageUrl, '')).join(','),
           fileDowload: this.fileDowload,
           htmlContent: this.htmlContent,
           typeValue: this.typeValue,
