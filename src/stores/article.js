@@ -14,8 +14,10 @@ class ArticleStore {
     imageUploadRemoteUrls: true,
     imageMaxSize: 1024 * 1024 * 0.4
   };
-  // 文章id
+  // 文章alpha
   @observable article_id = '';
+  // 文章id
+  @observable articleId = '';
   // 文章内容字段
   @observable inputVisible = false;
   @observable tags = [];
@@ -23,6 +25,8 @@ class ArticleStore {
   @observable title = '';
   @observable description = '';
   @observable requestLoading = false;
+  // 是否是编辑
+  @observable isEdit = false;
   // 对文件定义
   @observable fileList = [
     // {
@@ -114,7 +118,7 @@ class ArticleStore {
     }
     return true;
   }
-  // 保存编辑的内容
+  // 新增的内容
   @action.bound saveArticle() {
     if (this.validate()) {
       this.requestLoading = true;
@@ -133,8 +137,8 @@ class ArticleStore {
       }).then(action(({data}) => {
         message.success(data.message);
         browserHistory.push({
-          pathname: '/article',
-          search: `?article_id=${data.article_id}`
+          pathname: '/article_list',
+          search: `?article_list=${data.article_id}`
         });
         this.requestLoading = false;
       })).catch(action(error => {
@@ -143,9 +147,82 @@ class ArticleStore {
       }));
     }
   }
+  // 更新内容
+  @action.bound updateArticle(alpha) {
+    if (this.validate()) {
+      this.requestLoading = true;
+      articleApi.editArticleApi({
+        alpha,
+        params: {
+          articleId: this.articleId,
+          title: this.title,
+          description: this.description,
+          link: this.link,
+          tags: this.tags.join(','),
+          file: toJS(this.fileList)[0] && toJS(this.fileList)[0].url.replace(defaultApi.rearEndFileUrl, ''),
+          images: toJS(this.imageList).map(item => item.url.replace(defaultApi.rearEndImageUrl, '')).join(','),
+          htmlContent: this.htmlContent,
+        }
+      }).then(action(({data}) => {
+        message.success(data.message);
+        this.requestLoading = false;
+      })).catch(action((error) => {
+        message.error(error.response.data.error);
+        this.requestLoading = false;
+      }));
+    }
+  }
   // 获取内容信息
-  @action.bound getArticleData() {
-    console.log(4);
+  @action.bound getArticleData(articleId) {
+    articleApi.getArticleApi({articleId}).then(action(({data}) => {
+      // 填充数据
+      this.tags = data.data.tags.split(',');
+      this.title = data.data.title;
+      this.description = data.data.description;
+      this.typeValue = data.data.typeValue;
+      this.fileDowload = data.data.fileDowload;
+      this.htmlContent = data.data.htmlContent;
+      this.articleId = data.data.articleId;
+      if (data.data.file) {
+        this.fileList = [
+          {
+            uid: data.data.articleId,
+            name: data.data.file,
+            status: 'done',
+            url: `${defaultApi.rearEndFileUrl}${data.data.file}`,
+          }
+        ];
+      }
+      this.imageList = data.data.imageData.map((item) => {
+        if (item.image_url) {
+          return (
+            {
+              uid: item.id,
+              name: item.image_url,
+              status: 'done',
+              url: `${defaultApi.rearEndImageUrl}${item.image_url}`,
+            }
+          );
+        }
+      });
+      console.log(data);
+    })).catch(() => {
+      console.log('出错了');
+    });
+  }
+  // 删除上传的文件
+  @action.bound removeFile(type, file) {
+    if (this.isEdit) {
+      console.log(type, file);
+      articleApi.deleteFileApi({
+        articleId: this.articleId,
+        params: { type, imageId: file.uid, name: file.name }
+      }).then(action(() => {
+        console.log(5);
+      })).catch((error) => {
+        console.log(error);
+      });
+    }
   }
   @action.bound setValue(key, value) {
     this[key] = value;
@@ -170,6 +247,8 @@ class ArticleStore {
       // 编辑器内容
     this.htmlContent = '';
     this.article_id = '';
+    this.articleId = '';
+    this.isEdit = false;
   }
 }
 

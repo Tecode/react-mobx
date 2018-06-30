@@ -11,8 +11,9 @@ import Tooltip from 'antd/lib/tooltip';
 import Radio from 'antd/lib/radio';
 import { defaultApi } from 'api';
 import {toJS} from 'mobx';
-import styles from './index.less';
+import { parse } from 'query-string';
 import axios from 'axios';
+import styles from './index.less';
 
 
 const {TextArea} = Input;
@@ -28,12 +29,14 @@ function LeftContent({form, articleStore}) {
     saveArticle,
     fileList,
     handleChange,
+    removeFile,
     fileChange,
     imageList,
     fileDowload,
     link,
     title,
     description,
+    updateArticle,
     requestLoading,
     typeValue
   } = articleStore;
@@ -53,10 +56,14 @@ function LeftContent({form, articleStore}) {
     wrapperCol: {span: 6, offset: 6},
   };
   const checkValid = () => {
+    const articleId = parse(location.search).article_id;
     form.validateFields(
       (err) => {
         if (!err) {
-          console.info('success');
+          if (articleStore.isEdit) {
+            updateArticle(articleId);
+            return;
+          }
           saveArticle();
         }
       },
@@ -123,6 +130,7 @@ function LeftContent({form, articleStore}) {
         <Upload
           fileList={toJS(fileList)}
           onChange={fileChange}
+          onRemove={removeFile.bind(null, 'file')}
           action={`${defaultApi.prefix}/uploadfile`}
           headers={{Authorization: axios.defaults.headers.common.Authorization}}
           listType="picture">
@@ -191,7 +199,7 @@ function LeftContent({form, articleStore}) {
         </React.Fragment>
       </FormItem>
       <FormItem {...formItemLayout} label="类型">
-        <RadioGroup onChange={onChange} value={typeValue}>
+        <RadioGroup disabled={articleStore.isEdit} onChange={onChange} value={typeValue}>
           <Radio value="article">文章</Radio>
           <Radio value="ppt">PPT</Radio>
           <Radio value="html">HTML模板</Radio>
@@ -207,6 +215,7 @@ function LeftContent({form, articleStore}) {
           fileList={toJS(imageList)}
           headers={{Authorization: axios.defaults.headers.common.Authorization}}
           onChange={handleChange}
+          onRemove={removeFile.bind(null, 'image')}
           multiple={typeValue === 'ppt'}
           action={`${defaultApi.prefix}/uploadimage`}
           accept="image/*"
@@ -220,7 +229,7 @@ function LeftContent({form, articleStore}) {
         typeValue === 'ppt' || typeValue === 'html' ?
           <React.Fragment>
             <FormItem {...formItemLayout} label="下载方式">
-              <RadioGroup onChange={typeChange} value={fileDowload}>
+              <RadioGroup disabled={articleStore.isEdit} onChange={typeChange} value={fileDowload}>
                 <Radio value="link">填写链接</Radio>
                 <Radio value="upload">上传文件</Radio>
               </RadioGroup>

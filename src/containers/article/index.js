@@ -15,7 +15,8 @@ export default class Article extends Component {
   componentDidMount() {
     const articleId = parse(this.props.location.search).article_id;
     if (articleId) {
-      console.log(articleId);
+      this.props.articleStore.setValue('isEdit', true);
+      this.props.articleStore.getArticleData(articleId);
     }
   }
   componentWillUnmount() {
