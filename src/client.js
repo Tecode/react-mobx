@@ -4,12 +4,13 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import Routes from './routes';
 import axios from 'axios';
 // import Uuid from 'node-uuid';
 import { Provider } from 'mobx-react';
 import combineServerData from 'helpers/combineServerData';
+import browserHistory from 'helpers/history';
 import * as allStores from 'stores';
 
 
@@ -47,9 +48,9 @@ axios.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 // });
 ReactDOM.hydrate(
   <Provider {...allStores}>
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Routes />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   dest
 );

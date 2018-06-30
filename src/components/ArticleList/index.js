@@ -8,6 +8,7 @@ import { defaultApi } from 'api';
 import { runInAction } from 'mobx';
 import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
+import browserHistory from 'helpers/history';
 import styles from './index.less';
 
 function ArticleList({ articleListStore, uiStore }) {
@@ -49,6 +50,13 @@ function ArticleList({ articleListStore, uiStore }) {
           dataSource={articleListStore.dataList}
           renderItem={item => (
             <List.Item actions={[
+              <a onClick={() => {
+                browserHistory.push({
+                  pathname: '/article',
+                  search: `?article_id=${item.alpha}`,
+                  state: { some: 'state' }
+                });
+              }}>删除</a>,
               <Link to= {`/article?article_id=${item.alpha}`}>
                 编辑
               </Link>,
