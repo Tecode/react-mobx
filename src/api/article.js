@@ -7,3 +7,6 @@ export const getArticleApi = ({ articleId }) => axios.get(`/api/article/${articl
 export const editArticleApi = ({ articleId, params }) => axios.put(`/api/article/${articleId}`, params);
 // 获取文章列表
 export const getArticleListApi = (params) => axios.get(`/api/article`, {params});
+// 删除文章
+export const deleteArticleApi = ({ articleId }) => axios.delete(`/api/article/${articleId}`);
+
