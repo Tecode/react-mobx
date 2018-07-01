@@ -66,13 +66,6 @@ export default class Html extends Component {
                   rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )
         }
-        <style type="text/css">
-          a[href="https://froala.com/wysiwyg-editor"], a[href="https://www.froala.com/wysiwyg-editor?k=u"] {
-          display: none !important;
-          position: absolute;
-          top: -99999999px;
-        }
-        </style>
 
       </head>
       <body>
