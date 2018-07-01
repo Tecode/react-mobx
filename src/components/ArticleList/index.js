@@ -7,7 +7,6 @@ import Col from 'antd/lib/col';
 import { defaultApi } from 'api';
 import { runInAction } from 'mobx';
 import { Modal } from 'antd';
-import { Link } from 'react-router-dom';
 import browserHistory from 'helpers/history';
 import styles from './index.less';
 
@@ -56,10 +55,7 @@ function ArticleList({ articleListStore, uiStore }) {
                   search: `?article_id=${item.alpha}`,
                   state: { some: 'state' }
                 });
-              }}>删除</a>,
-              <Link to= {`/article?article_id=${item.alpha}`}>
-                编辑
-              </Link>,
+              }}>编辑</a>,
               <a onClick={handleClick.bind(item.alpha)}>删除</a>]}>
               <List.Item.Meta
                 avatar={createThumbnail(`${defaultApi.rearEndImageUrl}${item.imageUrl}`)}

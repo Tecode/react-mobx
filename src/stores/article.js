@@ -52,6 +52,8 @@ class ArticleStore {
     //    Only to show two recent uploaded files, and old ones will be replaced by the new
     // 如果是ppt可以选择多张图片
     if (this.typeValue === 'article') {
+      // 上传一个文件时删除数据库旧的文件
+      this.removeFile('image', fileList[0]);
       fileList = fileList.slice(-1);
     }
 
@@ -78,6 +80,8 @@ class ArticleStore {
     // 1. Limit the number of uploaded files
     //    Only to show two recent uploaded files, and old ones will be replaced by the new
     // 只能上传一个文件
+    // 上传一个文件时删除数据库旧的文件
+    this.removeFile('file', fileList[0]);
     fileList = fileList.slice(-1);
 
     // 2. read from response and show file link
@@ -157,6 +161,7 @@ class ArticleStore {
           articleId: this.articleId,
           title: this.title,
           description: this.description,
+          typeValue: this.typeValue,
           link: this.link,
           tags: this.tags.join(','),
           file: toJS(this.fileList)[0] && toJS(this.fileList)[0].url.replace(defaultApi.rearEndFileUrl, ''),
@@ -212,7 +217,7 @@ class ArticleStore {
   }
   // 删除上传的文件
   @action.bound removeFile(type, file) {
-    if (this.isEdit) {
+    if (this.isEdit && file.uid.toString().length < 8 ) {
       console.log(type, file);
       articleApi.deleteFileApi({
         articleId: this.articleId,
