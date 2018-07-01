@@ -31,7 +31,7 @@ class NavBar extends Component {
     return (
       <Layout className={styles.layout}>
         <Sider trigger={null} collapsible style={{ background: '#fff' }} collapsed={this.state.collapsed}>
-          <div className={styles.logo}>Logo</div>
+          <div className={styles.logo}></div>
           <Menu theme="light" mode="inline" defaultSelectedKeys={[pathname]} style={{ height: '100%' }}>
             <Menu.Item key="/home">
               <Link to="/home">
