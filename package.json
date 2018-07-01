@@ -91,9 +91,9 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "PORT": 9124,
+        "PORT": 9100,
         "target": "remote_prod",
-        "backendApi": "http://10.117.80.105:8080"
+        "backendApi": "http://47.98.212.129"
       }
     }
   },
