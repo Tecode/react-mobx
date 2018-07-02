@@ -8,6 +8,7 @@ var strip = require('strip-loader');
 var Visualizer = require('webpack-visualizer-plugin');
 var projectRootPath = path.resolve(__dirname, '../');
 var assetsPath = path.resolve(projectRootPath, './static/dist');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -87,12 +88,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: false
-    }),
+    new UglifyJSPlugin(),
 
     webpackIsomorphicToolsPlugin
   ]
