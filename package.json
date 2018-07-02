@@ -127,6 +127,7 @@
     "history": "^4.7.2",
     "hoist-non-react-statics": "1.0.3",
     "jquery": "^3.3.1",
+    "js-cookie": "^2.2.0",
     "mobx": "^5.0.2",
     "mobx-react": "^5.2.3",
     "mobx-react-router": "3.1.2",

@@ -46,7 +46,7 @@ export default class Html extends Component {
         {head.meta.toComponent()}
         {head.link.toComponent()}
         {head.script.toComponent()}
-        <title>title</title>
+        <title>乐游网站后台管理系统</title>
         <link rel="shortcut icon" href="/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta httpEquiv="content-type" content="text/html;charset=utf-8"/>
