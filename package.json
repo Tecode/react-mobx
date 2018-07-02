@@ -67,7 +67,7 @@
       }
     },
     "start-test": {
-      "command": "pm2 start ./bin/server.js --name=travel_local_test",
+      "command": "pm2 start ./bin/server.js --name=leyou_local_test",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
@@ -77,7 +77,7 @@
       }
     },
     "start-remote-test": {
-      "command": "pm2 start ./bin/server.js --name=travel_remote_test",
+      "command": "pm2 start ./bin/server.js --name=leyou_remote_test",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
@@ -87,7 +87,7 @@
       }
     },
     "start-remote-prod": {
-      "command": "pm2 start ./bin/server.js -i 2 --name=travel_remote_prod",
+      "command": "pm2 start ./bin/server.js -i 2 --name=leyou_remote_prod",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",

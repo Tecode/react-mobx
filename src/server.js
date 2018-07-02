@@ -49,7 +49,7 @@ app.post('/upload_image', function(req, res) {
     if (err) {
       return res.send(JSON.stringify(err));
     }
-    data.link = `http://localhost:3001/${data.link.slice(10)}`;
+    data.link = `http://admin.soscoon.com/${data.link.slice(10)}`;
     res.send(data);
   });
 });
