@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
@@ -38,7 +38,7 @@ export default class App extends Component {
               <Route exact path="/article" component={Article} />
               <Route exact path="/article_list" component={ArticleList} />
               {/*<Route exact path="/users" name="home-users" component={NotFound} />*/}
-              {/*<Redirect to="/home" />*/}
+              <Redirect to="/home" />
             </Switch>
           </NavBar>
         </div>
