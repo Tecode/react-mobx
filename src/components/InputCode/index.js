@@ -2,12 +2,13 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import Highlight from 'react-highlight.js';
 import Input from 'antd/lib/input';
+import styles from './index.less';
 
 const { TextArea } = Input;
 
 function InputCodeContent({codeStore}) {
   return (
-    <React.Fragment>
+    <div className={styles.box}>
       <h3>代码语言</h3>
       <Input onChange={(event) => {
         codeStore.setValue('language', event.target.value);
@@ -19,7 +20,7 @@ function InputCodeContent({codeStore}) {
       <Highlight language={codeStore.language}>
         {codeStore.content}
       </Highlight>
-    </React.Fragment>
+    </div>
   );
 }
 
