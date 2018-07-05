@@ -44,7 +44,8 @@ function LeftContent({form, articleStore}) {
     return ([
       '图片上传支持png,gif,jpeg,pjpeg,大小不能超过400kb.',
       '文章只允许上传一张图片，PPT可以上传多张图片',
-      '文件上传支持IE10以上浏览器'
+      '文件上传支持IE10以上浏览器',
+      '代码:<pre><code class="html hljs">...</code></pre>'
     ].map((value, key) => <li key={key}>{value}</li>));
   };
   const formItemLayout = {
@@ -243,6 +244,9 @@ function LeftContent({form, articleStore}) {
           onClick={checkValid}
           loading={requestLoading}>
           发布
+        </Button>
+        <Button>
+          <a href="/input_code" target="_blank">插入代码</a>
         </Button>
       </FormItem>
       <Divider>说明</Divider>

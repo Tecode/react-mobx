@@ -8,6 +8,7 @@ import NavBar from 'components/NavBar';
 import HomePage from '../homePage';
 import Article from '../article';
 import ArticleList from '../articleList';
+import InputCode from '../inputCode';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import LocaleProvider from 'antd/lib/locale-provider';
 // import Modal from 'components/common/Modal';
@@ -37,6 +38,7 @@ export default class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/article" component={Article} />
               <Route exact path="/article_list" component={ArticleList} />
+              <Route exact path="/input_code" component={InputCode} />
               {/*<Route exact path="/users" name="home-users" component={NotFound} />*/}
               <Redirect to="/home" />
             </Switch>
