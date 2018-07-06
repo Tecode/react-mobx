@@ -9,6 +9,7 @@ import Icon from 'antd/lib/icon';
 import Tag from 'antd/lib/tag';
 import Tooltip from 'antd/lib/tooltip';
 import Radio from 'antd/lib/radio';
+import Switch from 'antd/lib/switch';
 import { defaultApi } from 'api';
 import {toJS} from 'mobx';
 import { parse } from 'query-string';
@@ -36,6 +37,7 @@ function LeftContent({form, articleStore}) {
     link,
     title,
     description,
+    slider,
     updateArticle,
     requestLoading,
     typeValue
@@ -199,6 +201,11 @@ function LeftContent({form, articleStore}) {
           )}
         </React.Fragment>
       </FormItem>
+      <FormItem {...formItemLayout} label="轮播图">
+        <Switch checked={slider} onChange={(value) => {
+          setValue('slider', value);
+        }} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} />
+      </FormItem>
       <FormItem {...formItemLayout} label="类型">
         <RadioGroup disabled={articleStore.isEdit} onChange={onChange} value={typeValue}>
           <Radio value="article">文章</Radio>
@@ -245,8 +252,10 @@ function LeftContent({form, articleStore}) {
           loading={requestLoading}>
           发布
         </Button>
-        <Button>
-          <a href="/input_code" target="_blank">插入代码</a>
+        <Button onClick={() => {
+          window.open('/input_code');
+        }}>
+          插入代码
         </Button>
       </FormItem>
       <Divider>说明</Divider>

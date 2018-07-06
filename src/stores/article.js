@@ -16,6 +16,8 @@ class ArticleStore {
   };
   // 文章alpha
   @observable article_id = '';
+  // 是否轮播
+  @observable slider = false;
   // 文章id
   @observable articleId = '';
   // 文章内容字段
@@ -137,6 +139,7 @@ class ArticleStore {
           fileDowload: this.fileDowload,
           htmlContent: this.htmlContent,
           typeValue: this.typeValue,
+          slider: this.slider,
         }
       }).then(action(({data}) => {
         message.success(data.message);
@@ -167,6 +170,7 @@ class ArticleStore {
           file: toJS(this.fileList)[0] && toJS(this.fileList)[0].url.replace(defaultApi.rearEndFileUrl, ''),
           images: toJS(this.imageList).map(item => item.url.replace(defaultApi.rearEndImageUrl, '')).join(','),
           htmlContent: this.htmlContent,
+          slider: this.slider,
         }
       }).then(action(({data}) => {
         message.success(data.message);
@@ -188,6 +192,7 @@ class ArticleStore {
       this.fileDowload = data.data.fileDowload;
       this.htmlContent = data.data.htmlContent;
       this.articleId = data.data.articleId;
+      this.slider = data.data.slider;
       if (data.data.file) {
         this.fileList = [
           {
@@ -254,6 +259,7 @@ class ArticleStore {
     this.article_id = '';
     this.articleId = '';
     this.isEdit = false;
+    this.slider = false;
   }
 }
 
