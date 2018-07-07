@@ -193,6 +193,7 @@ class ArticleStore {
       this.htmlContent = data.data.htmlContent;
       this.articleId = data.data.articleId;
       this.slider = data.data.slider;
+      this.link = data.data.link;
       if (data.data.file) {
         this.fileList = [
           {
