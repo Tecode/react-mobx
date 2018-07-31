@@ -57,9 +57,7 @@ export default class Html extends Component {
         <link href="../vendors/css/antd.css"
               rel="stylesheet" type="text/css" charSet="UTF-8"/>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css" />
-        <link href="../vendors/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-        <link href="https://cdn.bootcss.com/froala-editor/2.8.1/css/froala_style.min.css" rel="stylesheet" />
+        <link href="../vendors/css/braft.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdn.bootcss.com/highlight.js/9.11.0/styles/atelier-estuary-light.min.css" rel="stylesheet" />
         {
           Object.keys(assets.styles).map((style, key) =>

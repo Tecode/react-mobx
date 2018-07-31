@@ -4,16 +4,6 @@ import { message } from 'antd';
 import browserHistory from 'helpers/history';
 
 class ArticleStore {
-  @observable editorConfig = {
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: true,
-    heightMin: 600,
-    language: 'zh_cn',
-    dragInline: false,
-    imageUploadURL: '/upload_image',
-    imageUploadRemoteUrls: true,
-    imageMaxSize: 1024 * 1024 * 0.4
-  };
   // 文章alpha
   @observable article_id = '';
   // 是否轮播
@@ -38,6 +28,8 @@ class ArticleStore {
     //   url: 'http://www.baidu.com/xxx.png',
     // }
   ];
+  // 插入HTML代码
+  @observable insertContent = '';
   // 文件是自己上传还是填写链接
   @observable fileDowload = 'link';
   // 文件链接地址
@@ -261,6 +253,7 @@ class ArticleStore {
     this.articleId = '';
     this.isEdit = false;
     this.slider = false;
+    this.insertContent = '';
   }
 }
 

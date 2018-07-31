@@ -202,7 +202,7 @@ function LeftContent({form, articleStore}) {
         </React.Fragment>
       </FormItem>
       <FormItem {...formItemLayout} label="轮播图">
-        <Switch checked={slider} onChange={(value) => {
+        <Switch checked={slider === 0 ? false : true} onChange={(value) => {
           setValue('slider', value);
         }} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} />
       </FormItem>
