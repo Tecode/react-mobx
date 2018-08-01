@@ -186,6 +186,7 @@ class ArticleStore {
       this.articleId = data.data.articleId;
       this.slider = data.data.slider;
       this.link = data.data.link;
+      this.article_id = data.data.articleId;
       if (data.data.file) {
         this.fileList = [
           {
@@ -216,7 +217,6 @@ class ArticleStore {
   // 删除上传的文件
   @action.bound removeFile(type, file) {
     if (this.isEdit && file.uid.toString().length < 8 ) {
-      console.log(type, file);
       articleApi.deleteFileApi({
         articleId: this.articleId,
         params: { type, imageId: file.uid, name: file.name }

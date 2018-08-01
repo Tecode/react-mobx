@@ -56,7 +56,7 @@ function ArticleList({ articleListStore, uiStore }) {
                   state: { some: 'state' }
                 });
               }}>编辑</a>,
-              <a onClick={handleClick.bind(item.alpha)}>删除</a>]}>
+              <a onClick={handleClick.bind(null, item.alpha)}>删除</a>]}>
               <List.Item.Meta
                 avatar={createThumbnail(`${defaultApi.rearEndImageUrl}${item.imageUrl}`)}
                 title={<a href="#">{item.title}</a>}
