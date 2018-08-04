@@ -51,6 +51,18 @@ class NavBar extends Component {
                 <span>新增文章</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="/artifact">
+              <Link to="/artifact">
+                <Icon type="rocket" />
+                <span>装逼神器</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/artifact_list">
+              <Link to="/artifact_list">
+                <Icon type="profile" />
+                <span>神器列表</span>
+              </Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout>
