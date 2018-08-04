@@ -50,11 +50,17 @@ class Artifact {
   @action.bound addNewArtifact() {
     if (this.validate()) {
       this.sumbmitLoading = true;
-      artifactApi.addNewArtifactApi({params: this.formData}).then(action(resp => {
-        console.log(resp);
+      artifactApi.addNewArtifactApi({params: this.formData}).then(action(({data}) => {
+        console.log(data);
+        message.success(data.message);
         this.sumbmitLoading = false;
-      })).catch(action(err => {
-        console.log(err);
+      })).catch(action(error => {
+        console.log(error);
+        message.error(error.response.data.error);
+        // browserHistory.push({
+        //   pathname: '/article_list',
+        //   search: `?article_list=${data.article_id}`
+        // });
         this.sumbmitLoading = false;
       }));
     }
