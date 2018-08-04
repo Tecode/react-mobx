@@ -18,16 +18,11 @@ import {defaultApi} from 'api';
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 
-function ArtifactBody({
-                        form,
-                        imageList = [],
-                        handleChange,
-                        artifactStore
-                      }) {
+function ArtifactBody({ form, artifactStore }) {
   const { formData } = artifactStore;
   // 设置form表单数据
   const handleFormChange = (key, event) => {
-    artifactStore.setValue(`formData.${key}`, event.target.value);
+    artifactStore.setValue(key, event.target.value);
     form.setFieldsValue({
       [key]: event.target.value,
     });
@@ -91,11 +86,11 @@ function ArtifactBody({
           extra="封面图片" {...formItemLayout}>
         <Upload
           name="image"
-          fileList={toJS(imageList)}
+          fileList={toJS(artifactStore.coverList)}
           headers={{Authorization: axios.defaults.headers.common.Authorization}}
-          onChange={handleChange}
+          onChange={artifactStore.coverChange}
           // onRemove={removeFile.bind(null, 'image')}
-          action={`${defaultApi.prefix}/zbsq`}
+          action={`${defaultApi.prefix}/uploadimage`}
           accept="image/*"
           listType="picture">
           <Button>
@@ -119,12 +114,10 @@ function ArtifactBody({
           extra="字体文件" {...formItemLayout}>
           <Upload
             name="font"
-            fileList={toJS(imageList)}
+            fileList={toJS(artifactStore.fileList)}
             headers={{Authorization: axios.defaults.headers.common.Authorization}}
-            onChange={handleChange}
-            // onRemove={removeFile.bind(null, 'image')}
-            action={`${defaultApi.prefix}/zbsq`}
-            accept="application/*"
+            onChange={artifactStore.fileChange}
+            action={`${defaultApi.prefix}/fontupload`}
             listType="picture">
             <Button>
               <Icon type="upload"/> 选择字体
@@ -147,11 +140,10 @@ function ArtifactBody({
           extra="原图，要处理的图片" {...formItemLayout}>
           <Upload
             name="image"
-            fileList={toJS(imageList)}
+            fileList={toJS(artifactStore.imageList)}
             headers={{Authorization: axios.defaults.headers.common.Authorization}}
-            onChange={handleChange}
-            // onRemove={removeFile.bind(null, 'image')}
-            action={`${defaultApi.prefix}/zbsq`}
+            onChange={artifactStore.imageChange}
+            action={`${defaultApi.prefix}/uploadimage`}
             accept="image/*"
             listType="picture">
             <Button>
@@ -162,7 +154,9 @@ function ArtifactBody({
       </Col>
       <Col xs={{span: 10}}>
         <FormItem {...formItemLayout} label="是否有日期">
-          <RadioGroup disabled={artifactStore.isEdit} onChange={() => {}} value={formData.date}>
+          <RadioGroup disabled={artifactStore.isEdit} onChange={(event) => {
+            artifactStore.setValue('date', event.target.value);
+          }} value={formData.date}>
             <Radio value="1">是</Radio>
             <Radio value="0">否</Radio>
           </RadioGroup>
