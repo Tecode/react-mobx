@@ -11,3 +11,5 @@ export const getArtifactListApi = (params) => axios.get(`/api/artifact`, {params
 export const deleteArtifactApi = ({ artifactId }) => axios.delete(`/api/artifact/${artifactId}`);
 // 删除图片
 export const deleteFileApi = ({ artifactId, params }) => axios.delete(`/api/file/${artifactId}`, {params});
+// 获取字体列表
+export const getFontListApi = (params) => axios.get(`/api/font_list`, {params});

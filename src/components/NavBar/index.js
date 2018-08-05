@@ -63,6 +63,12 @@ class NavBar extends Component {
                 <span>神器列表</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="/font_list">
+              <Link to="/font_list">
+                <Icon type="profile" />
+                <span>字体列表</span>
+              </Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout>

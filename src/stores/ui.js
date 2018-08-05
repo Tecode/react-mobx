@@ -1,5 +1,7 @@
 import {observable, action, reaction} from 'mobx';
 import articleListStore from './articleList';
+import artiFactListStore from './artifactList';
+import fontListStore from './fontList';
 
 class UiStore {
   constructor() {
@@ -12,7 +14,13 @@ class UiStore {
     reaction(
       () => this.initState.artifactList.index,
       () => {
-        articleListStore.getListData();
+        artiFactListStore.getListData();
+      }
+    );
+    reaction(
+      () => this.initState.fontList.index,
+      () => {
+        fontListStore.getListData();
       }
     );
   }
@@ -25,6 +33,10 @@ class UiStore {
       index: 1,
       size: 10,
     },
+    fontList: {
+      index: 1,
+      size: 10,
+    }
   };
   @action.bound resetStore() {
     this.initState = {
@@ -33,6 +45,10 @@ class UiStore {
         size: 10,
       },
       artifactList: {
+        index: 1,
+        size: 10,
+      },
+      fontList: {
         index: 1,
         size: 10,
       },
