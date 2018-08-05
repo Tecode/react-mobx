@@ -32,12 +32,12 @@ function ArtifactBody({ form, artifactStore }) {
     wrapperCol: {span: 18},
   };
   const checkValid = () => {
-    const articleId = parse(location.search).article_id;
+    const artifactId = parse(location.search).artifact_id;
     form.validateFields(
       (err) => {
         if (!err) {
           if (artifactStore.isEdit) {
-            artifactStore.updateArticle(articleId);
+            artifactStore.updateArtifact(artifactId);
             return;
           }
           artifactStore.saveArtifact();
@@ -56,6 +56,7 @@ function ArtifactBody({ form, artifactStore }) {
         <ul>
           <li>多个属性请用空格隔开</li>
           <li>示例：center left center</li>
+          <li>时间格式：YYYY MM DD HH II SS</li>
         </ul>
       </Col>
       <Col xs={{span: 10}}>
@@ -79,6 +80,17 @@ function ArtifactBody({ form, artifactStore }) {
             }],
           })(
             <Input onChange={handleFormChange.bind(this, 'artifactText')} placeholder="装逼文字"/>
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="自动生成的文字">
+          {form.getFieldDecorator('autoText', {
+            initialValue: formData.autoText,
+            rules: [{
+              required: false,
+              message: '自动生成的文字',
+            }],
+          })(
+            <Input onChange={handleFormChange.bind(this, 'autoText')} placeholder="自动生成的文字（YYYY,DD,MM,H,S）"/>
           )}
         </FormItem>
         <FormItem

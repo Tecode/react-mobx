@@ -1,9 +1,10 @@
-import {observable, action, runInAction } from 'mobx';
-import { artifactApi, defaultApi } from 'api';
-import { message } from 'antd';
+import {observable, action, runInAction} from 'mobx';
+import {artifactApi, defaultApi} from 'api';
+import {message} from 'antd';
 
 class Artifact {
   @observable sumbmitLoading = false;
+  @observable artifactId = '';
   @observable isEdit = false;
   // 封面
   @observable coverList = [];
@@ -17,21 +18,28 @@ class Artifact {
     fontLocalName: '',
     image: '',
     uploadFont: '',
-    title: '3',
-    artifactText: '4455 5887',
-    fontName: 'gh.ttf',
-    fontColor: '#fff',
-    date: '0',
-    fontSize: '12',
-    vertical: 'top',
-    horizontal: 'left',
-    rotation: '-32',
-    xAxis: '60',
-    yAxis: '50',
+    title: '',
+    artifactText: '',
+    fontName: '',
+    fontColor: '',
+    date: '',
+    fontSize: '',
+    vertical: '',
+    horizontal: '',
+    rotation: '',
+    xAxis: '',
+    yAxis: '',
+    autoText: ''
   };
+
   @action.bound setValue(key, value) {
     this.formData[key] = value;
   }
+
+  @action.bound setNormalValue(key, value) {
+    this[key] = value;
+  }
+
   // 验证输入的内容
   @action.bound validate() {
     if (this.imageList.length < 1) {
@@ -44,9 +52,28 @@ class Artifact {
     }
     return true;
   }
+
   @action.bound saveArtifact() {
     this.addNewArtifact();
   }
+
+  // 更新内容
+  @action.bound updateArtifact(artifactId) {
+    if (this.validate()) {
+      this.requestLoading = true;
+      artifactApi.editArtifactApi({
+        artifactId,
+        params: this.formData,
+      }).then(action(({data}) => {
+        message.success(data.message);
+        this.requestLoading = false;
+      })).catch(action((error) => {
+        message.error(error.response.data.error);
+        this.requestLoading = false;
+      }));
+    }
+  }
+
   @action.bound addNewArtifact() {
     if (this.validate()) {
       this.sumbmitLoading = true;
@@ -65,6 +92,43 @@ class Artifact {
       }));
     }
   }
+
+  // 获取内容信息
+  @action.bound getArticleData(artifactId) {
+    artifactApi.getArtifactApi({artifactId}).then(action(({data}) => {
+      // 填充数据
+      this.formData = data.data;
+      if (data.data.fontLocalName) {
+        this.fileList = [
+          {
+            uid: '51024',
+            name: data.data.fontLocalName,
+            status: 'done',
+            url: `${defaultApi.rearEndFileUrl}${data.data.file}`,
+          }
+        ];
+      }
+      this.imageList = [
+        {
+          uid: '10377',
+          name: data.data.image,
+          status: 'done',
+          url: `${defaultApi.rearEndImageUrl}${data.data.image}`,
+        }
+      ];
+      this.coverList = [
+        {
+          uid: '10377',
+          name: data.data.cover,
+          status: 'done',
+          url: `${defaultApi.rearEndImageUrl}${data.data.cover}`,
+        }
+      ];
+    })).catch(() => {
+      console.log('出错了');
+    });
+  }
+
   @action.bound coverChange(info) {
     let fileList = info.fileList;
     // 1. Limit the number of uploaded files
@@ -80,6 +144,7 @@ class Artifact {
     });
     this.coverList = fileList;
   }
+
   @action.bound imageChange(info) {
     let fileList = info.fileList;
     // 1. Limit the number of uploaded files
@@ -95,6 +160,7 @@ class Artifact {
     });
     this.imageList = fileList;
   }
+
   @action.bound fileChange(info) {
     let fileList = info.fileList;
     // 1. Limit the number of uploaded files
@@ -116,6 +182,37 @@ class Artifact {
       return file;
     });
     this.fileList = fileList;
+  }
+
+  @action.bound resetStore() {
+    this.sumbmitLoading = false;
+    this.artifactId = '';
+    this.isEdit = false;
+    // 封面
+    this.coverList = [];
+    // 图片
+    this.imageList = [];
+    // ziti
+    this.fileList = [];
+    // 参数
+    this.formData = {
+      cover: '',
+      fontLocalName: '',
+      image: '',
+      uploadFont: '',
+      title: '',
+      artifactText: '',
+      fontName: '',
+      fontColor: '',
+      date: '',
+      fontSize: '',
+      vertical: '',
+      horizontal: '',
+      rotation: '',
+      xAxis: '',
+      yAxis: '',
+      autoText: ''
+    };
   }
 }
 
