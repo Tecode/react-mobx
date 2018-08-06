@@ -110,7 +110,7 @@ function ArtifactBody({ form, artifactStore }) {
           </Button>
         </Upload>
         </FormItem>
-        <FormItem {...formItemLayout} label="字体名称">
+        <FormItem {...formItemLayout} label="字体名称(可以多个)">
           {form.getFieldDecorator('fontName', {
             initialValue: formData.fontName,
             rules: [{
@@ -121,9 +121,31 @@ function ArtifactBody({ form, artifactStore }) {
             <Input onChange={handleFormChange.bind(this, 'fontName')} placeholder="格式xx.ttf" />
           )}
         </FormItem>
+        <FormItem {...formItemLayout} label="字体名称（一个)">
+          {form.getFieldDecorator('fontLocalName', {
+            initialValue: formData.fontLocalName,
+            rules: [{
+              required: false,
+              message: '字体名称不能为空',
+            }],
+          })(
+            <Input onChange={handleFormChange.bind(this, 'fontLocalName')} placeholder="字体名称" />
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="服务器的字体（.ttf)">
+          {form.getFieldDecorator('uploadFont', {
+            initialValue: formData.uploadFont,
+            rules: [{
+              required: false,
+              message: '字体名称不能为空',
+            }],
+          })(
+            <Input onChange={handleFormChange.bind(this, 'uploadFont')} placeholder="格式xx.ttf" />
+          )}
+        </FormItem>
         <FormItem
-          label="字体"
-          extra="字体文件" {...formItemLayout}>
+          label="字体图片"
+          extra="字体图片" {...formItemLayout}>
           <Upload
             name="file"
             fileList={toJS(artifactStore.fileList)}
@@ -132,7 +154,7 @@ function ArtifactBody({ form, artifactStore }) {
             action={`${defaultApi.prefix}/fontupload`}
             listType="picture">
             <Button>
-              <Icon type="upload"/> 选择字体
+              <Icon type="upload"/> 选择字体图片
             </Button>
           </Upload>
         </FormItem>
