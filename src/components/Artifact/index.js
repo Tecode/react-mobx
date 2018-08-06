@@ -166,7 +166,7 @@ function ArtifactBody({ form, artifactStore }) {
       </Col>
       <Col xs={{span: 10}}>
         <FormItem {...formItemLayout} label="是否有日期">
-          <RadioGroup disabled={artifactStore.isEdit} onChange={(event) => {
+          <RadioGroup onChange={(event) => {
             artifactStore.setValue('date', event.target.value);
           }} value={formData.date}>
             <Radio value="1">是</Radio>

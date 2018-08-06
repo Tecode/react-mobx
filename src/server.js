@@ -54,13 +54,25 @@ app.post('/upload_image', function(req, res) {
   });
 });
 app.get('*', (req, res) => {
-  axios.defaults.headers.common['scm-token'] = req.cookies['scm-token'] || {};
+  // axios.defaults.headers.common['remote_token-token'] = req.cookies['remote_token'] || {};
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
     webpackIsomorphicTools.refresh();
   }
-  console.log('路由被match', url.parse(req.url));
+  // 过滤xss
+  if (req.url.includes('<script>') || req.url.includes('</script>') || req.url.includes('%3Cscript%3E') || req.url.includes('%3C/script%3E')) {
+    res.redirect('/');
+  }
+  if (req.cookies['remote_token']) {
+    axios.defaults.headers.common.Authorization = `Bearer ${req.cookies['remote_token']}`;
+    axios.get(`${process.env.backendApi}/api/userInfo`).then(({data}) => {
+      allStores.clientStore.userInfo = data.data;
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+  // console.log('路由被match', url.parse(req.url));
   /*服务端注入RouterStore*/
   const context = {};
   allStores.location = {

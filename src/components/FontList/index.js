@@ -25,7 +25,14 @@ function ArticleList({ fontListStore, uiStore }) {
   return (
     <Row>
       <Col xs={{ span: 24 }}>
-        <Table dataSource={toJS(fontListStore.fontListData)} columns={columns} />
+        <Table
+          rowKey="artifactId"
+          dataSource={toJS(fontListStore.fontListData)}
+          bordered
+          total={fontListStore.total}
+          pagination={uiStore.initState.fontList.index}
+          title={() => '网站已上传字体列表，使用时请添加字体名称。'}
+          columns={columns} />
       </Col>
     </Row>
   );

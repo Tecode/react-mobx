@@ -19,6 +19,9 @@ export default class HomePage extends Component {
       this.props.artifactStore.getArticleData(artifactId);
     }
   }
+  componentWillUnmount() {
+    this.props.artifactStore.resetStore();
+  }
   render() {
     return <ArtifactBody />;
   }
