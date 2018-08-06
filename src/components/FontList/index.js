@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Table from 'antd/lib/table';
-import { toJS } from 'mobx';
+import { toJS, runInAction } from 'mobx';
 
 function ArticleList({ fontListStore, uiStore }) {
-  console.log(fontListStore, uiStore);
 
   const columns = [{
     title: '字体名称',
@@ -29,8 +28,16 @@ function ArticleList({ fontListStore, uiStore }) {
           rowKey="artifactId"
           dataSource={toJS(fontListStore.fontListData)}
           bordered
-          total={fontListStore.total}
-          pagination={uiStore.initState.fontList.index}
+          pagination={{
+            onChange: (page) => {
+              runInAction('翻页', () => {
+                uiStore.initState.fontList.index = page;
+              });
+            },
+            showQuickJumper: true,
+            total: fontListStore.total,
+            pageSize: uiStore.initState.fontList.size,
+          }}
           title={() => '网站已上传字体列表，使用时请添加字体名称。'}
           columns={columns} />
       </Col>

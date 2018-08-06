@@ -37,11 +37,10 @@ function ArticleList({ articleListStore, uiStore }) {
               runInAction('翻页', () => {
                 uiStore.initState.articleList.index = page;
               });
-              articleListStore.getListData();
             },
             showQuickJumper: true,
             total: articleListStore.total,
-            pageSize: 5,
+            pageSize: uiStore.initState.articleList.size,
           }}
           loading={articleListStore.loading}
           itemLayout="horizontal"

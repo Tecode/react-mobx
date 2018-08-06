@@ -203,7 +203,7 @@ function ArtifactBody({ form, artifactStore }) {
               message: '字体大小不能为空',
             }],
           })(
-            <Input onChange={handleFormChange.bind(this, 'title')} placeholder="格式：24" />
+            <Input onChange={handleFormChange.bind(this, 'fontSize')} placeholder="格式：24" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="垂直对齐">

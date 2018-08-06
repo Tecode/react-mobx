@@ -174,7 +174,6 @@ class Artifact {
       if (file.response) {
         // Component will show file.url as link
         runInAction('insertData', () => {
-          this.formData.fontName = `${this.formData.fontName} ${file.response.fontName}`;
           this.formData.fontImage = file.response.url;
         });
         file.url = defaultApi.rearEndfontUrl + file.response.url;
