@@ -125,7 +125,7 @@ function ArtifactBody({ form, artifactStore }) {
           label="字体"
           extra="字体文件" {...formItemLayout}>
           <Upload
-            name="font"
+            name="file"
             fileList={toJS(artifactStore.fileList)}
             headers={{Authorization: axios.defaults.headers.common.Authorization}}
             onChange={artifactStore.fileChange}
