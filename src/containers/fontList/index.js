@@ -1,19 +1,11 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import FontListBody from 'components/FontList';
-import PropTypes from 'prop-types';
+import React from 'react';
+import AsyncComponent from 'components/common/AsyncComponent';
 
+const loader = (cb) => {
+  require.ensure([], (require) => {
+    cb(require('./FontLIst'));
+  }, 'FontLIst');
+};
 
-@inject('fontListStore')
-@observer
-export default class HomePage extends Component {
-  static propTypes = {
-    fontListStore: PropTypes.object
-  };
-  componentDidMount() {
-    this.props.fontListStore.getListData();
-  }
-  render() {
-    return <FontListBody />;
-  }
-}
+export default (props) =>
+  <AsyncComponent {...props} loader={loader}/>;

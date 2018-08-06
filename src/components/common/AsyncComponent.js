@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import CirclesLoading from 'components/common/CirclesLoading';
 
 export default class AsyncComponent extends Component {
   static propTypes = {
@@ -19,7 +18,7 @@ export default class AsyncComponent extends Component {
     });
   }
   renderPlaceholder() {
-    return <CirclesLoading />;
+    return <p>加载中，请稍后...</p>;
   }
   render() {
     if (this.state.component) {
