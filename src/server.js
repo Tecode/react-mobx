@@ -62,15 +62,7 @@ app.get('*', (req, res) => {
   }
   // 过滤xss
   if (req.url.includes('<script>') || req.url.includes('</script>') || req.url.includes('%3Cscript%3E') || req.url.includes('%3C/script%3E')) {
-    res.redirect('/');
-  }
-  if (req.cookies['remote_token']) {
-    axios.defaults.headers.common.Authorization = `Bearer ${req.cookies['remote_token']}`;
-    axios.get(`${process.env.backendApi}/api/userInfo`).then(({data}) => {
-      allStores.clientStore.userInfo = data.data;
-    }).catch(error => {
-      console.log(error);
-    });
+    res.redirect('/login');
   }
   // console.log('路由被match', url.parse(req.url));
   /*服务端注入RouterStore*/
@@ -88,18 +80,32 @@ app.get('*', (req, res) => {
   );
   res.status(200);
   global.navigator = { userAgent: req.headers['user-agent'] };
-  res.send('<!doctype html>\n' +
-    '<!-- Polyfills -->\n' +
-    '<!--[if lt IE 10]>\n' +
-    '<script src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.5.7/es5-shim.min.js,es5-shim/4.5.7/es5-sham.min.js,es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>\n' +
-    '<script src="https://raw.githubusercontent.com/inexorabletash/polyfill/master/typedarray.js"></script>\n' +
-    '<![endif]-->\n' +
-    '<!--[if lte IE 11]>\n' +
-    '<script src="https://as.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js"></script>\n' +
-    '<![endif]-->\n' +
-    renderToString(<Html reqUrlObj={url.parse(req.url, true)} isDev={__DEVELOPMENT__}
-      assets={webpackIsomorphicTools.assets()}
-      component={component} {...allStores} />));
+  const sendHtml = () => {
+    res.send('<!doctype html>\n' +
+      '<!-- Polyfills -->\n' +
+      '<!--[if lt IE 10]>\n' +
+      '<script src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.5.7/es5-shim.min.js,es5-shim/4.5.7/es5-sham.min.js,es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>\n' +
+      '<script src="https://raw.githubusercontent.com/inexorabletash/polyfill/master/typedarray.js"></script>\n' +
+      '<![endif]-->\n' +
+      '<!--[if lte IE 11]>\n' +
+      '<script src="https://as.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js"></script>\n' +
+      '<![endif]-->\n' +
+      renderToString(<Html reqUrlObj={url.parse(req.url, true)} isDev={__DEVELOPMENT__}
+                           assets={webpackIsomorphicTools.assets()}
+                           component={component} {...allStores} />));
+  };
+  if (req.cookies['remote_token']) {
+    axios.defaults.headers.common.Authorization = `Bearer ${req.cookies['remote_token']}`;
+    axios.get(`${process.env.backendApi}/api/userInfo`).then(({data}) => {
+      allStores.clientStore.userInfo = data.data;
+      sendHtml();
+    }).catch(error => {
+      console.log(error);
+      sendHtml();
+    });
+  } else {
+    sendHtml();
+  }
 });
 
 if (config.port) {
