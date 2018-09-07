@@ -40,7 +40,8 @@ function LeftContent({form, articleStore}) {
     slider,
     updateArticle,
     requestLoading,
-    typeValue
+    typeValue,
+    movie
   } = articleStore;
   const descriptionFun = () => {
     return ([
@@ -200,6 +201,11 @@ function LeftContent({form, articleStore}) {
             </Tag>
           )}
         </React.Fragment>
+      </FormItem>
+      <FormItem {...formItemLayout} label="电影">
+        <Switch checked={movie} onChange={(value) => {
+          setValue('movie', value);
+        }} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} />
       </FormItem>
       <FormItem {...formItemLayout} label="轮播图">
         <Switch checked={!!slider} onChange={(value) => {

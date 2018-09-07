@@ -8,6 +8,8 @@ class ArticleStore {
   @observable article_id = '';
   // 是否轮播
   @observable slider = false;
+  // 是否是电影
+  @observable movie = false;
   // 文章id
   @observable articleId = '';
   // 文章内容字段
@@ -132,6 +134,7 @@ class ArticleStore {
           htmlContent: this.htmlContent,
           typeValue: this.typeValue,
           slider: this.slider,
+          movie: this.movie
         }
       }).then(action(({data}) => {
         message.success(data.message);
@@ -163,6 +166,7 @@ class ArticleStore {
           images: toJS(this.imageList).map(item => item.url.replace(defaultApi.rearEndImageUrl, '')).join(','),
           htmlContent: this.htmlContent,
           slider: this.slider,
+          movie: this.movie
         }
       }).then(action(({data}) => {
         message.success(data.message);
@@ -186,6 +190,7 @@ class ArticleStore {
       this.articleId = data.data.articleId;
       this.slider = data.data.slider;
       this.link = data.data.link;
+      this.movie = data.data.movie;
       this.article_id = data.data.articleId;
       if (data.data.file) {
         this.fileList = [
@@ -253,6 +258,7 @@ class ArticleStore {
     this.articleId = '';
     this.isEdit = false;
     this.slider = false;
+    this.movie = false;
     this.insertContent = '';
   }
 }
