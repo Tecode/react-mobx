@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import InputCodeContent from 'components/InputCode';
-import { Helmet } from 'react-helmet';
+import React from 'react';
+import AsyncComponent from 'components/common/AsyncComponent';
 
-@observer
-export default class ArticleList extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>插入代码</title>
-        </Helmet>
-        <InputCodeContent />
-      </React.Fragment>
-    );
-  }
-}
+const loader = (cb) => {
+  require.ensure([], (require) => {
+    cb(require('./InputCode'));
+  }, 'InputCode');
+};
+
+export default (props) =>
+  <AsyncComponent {...props} loader={loader}/>;

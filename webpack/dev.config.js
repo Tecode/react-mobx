@@ -68,6 +68,17 @@ module.exports = {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       './src/client.js'
+    ],
+    'vendor': [
+      // Allows you to use the full set of ES6 features on client-side (place it before anything else)
+      'core-js/es6/map',
+      'core-js/es6/set',
+      'react',
+      'react-dom',
+      'history',
+      'react-helmet',
+      'axios',
+      'lodash'
     ]
   },
   output: {

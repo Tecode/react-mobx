@@ -29,7 +29,8 @@ class Artifact {
     rotation: '',
     xAxis: '',
     yAxis: '',
-    autoText: ''
+    autoText: '',
+    fontImage: ''
   };
 
   @action.bound setValue(key, value) {
@@ -104,7 +105,7 @@ class Artifact {
             uid: '51024',
             name: data.data.fontLocalName,
             status: 'done',
-            url: `${defaultApi.rearEndFileUrl}${data.data.file}`,
+            url: `${defaultApi.rearEndfontUrl}${data.data.fontImage}`,
           }
         ];
       }
@@ -173,9 +174,7 @@ class Artifact {
       if (file.response) {
         // Component will show file.url as link
         runInAction('insertData', () => {
-          this.formData.uploadFont = file.response.fontName;
-          this.formData.fontLocalName = file.response.localName;
-          this.formData.fontName = `${this.formData.fontName} ${file.response.fontName}`;
+          this.formData.fontImage = file.response.url;
         });
         file.url = defaultApi.rearEndfontUrl + file.response.url;
       }
@@ -211,7 +210,8 @@ class Artifact {
       rotation: '',
       xAxis: '',
       yAxis: '',
-      autoText: ''
+      autoText: '',
+      fontImage: ''
     };
   }
 }

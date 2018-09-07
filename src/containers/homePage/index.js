@@ -1,3 +1,11 @@
-import HomePage from './HomePage';
+import React from 'react';
+import AsyncComponent from 'components/common/AsyncComponent';
 
-export default HomePage;
+const loader = (cb) => {
+  require.ensure([], (require) => {
+    cb(require('./HomePage'));
+  }, 'HomePage');
+};
+
+export default (props) =>
+  <AsyncComponent {...props} loader={loader}/>;

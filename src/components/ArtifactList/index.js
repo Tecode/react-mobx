@@ -35,9 +35,8 @@ function ArticleList({ artifactListStore, uiStore }) {
           pagination={{
             onChange: (page) => {
               runInAction('翻页', () => {
-                uiStore.initState.articleList.index = page;
+                uiStore.initState.artifactList.index = page;
               });
-              artifactListStore.getListData();
             },
             showQuickJumper: true,
             total: artifactListStore.total,

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 import Layout from 'antd/lib/layout';
 import Menu from 'antd/lib/menu';
 import Icon from 'antd/lib/icon';
+import Popover from 'antd/lib/popover';
 import NavHeader from './NavHeader';
 import 'antd/lib/layout/style';
 import styles from './index.less';
@@ -12,11 +14,13 @@ const { Header, Sider, Content } = Layout;
 import { withRouter } from 'react-router-dom';
 // import App from '../../containers/app';
 
-
+@inject('clientStore')
+@observer
 class NavBar extends Component {
   static propTypes = {
     children: PropTypes.any,
-    location: PropTypes.object
+    location: PropTypes.object,
+    clientStore: PropTypes.object,
   };
   state = {
     collapsed: false
@@ -28,6 +32,7 @@ class NavBar extends Component {
   };
   render() {
     const pathname = this.props.location.pathname;
+    const { userInfo } = this.props.clientStore;
     return (
       <Layout className={styles.layout}>
         <Sider trigger={null} collapsible style={{ background: '#fff' }} collapsed={this.state.collapsed}>
@@ -51,17 +56,31 @@ class NavBar extends Component {
                 <span>新增文章</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="/artifact">
-              <Link to="/artifact">
-                <Icon type="rocket" />
-                <span>装逼神器</span>
-              </Link>
+            <Menu.Item key="/artifact" disabled={!userInfo.artifact}>
+              {
+                userInfo.artifact ?
+                  <Link to="/artifact">
+                    <Icon type="rocket" />
+                    <span>装逼神器</span>
+                  </Link> :
+                  <Popover placement="left" content="没有权限，请联系管理员">
+                    <Icon type="rocket" />
+                    <span>装逼神器</span>
+                  </Popover>
+              }
             </Menu.Item>
-            <Menu.Item key="/artifact_list">
-              <Link to="/artifact_list">
-                <Icon type="profile" />
-                <span>神器列表</span>
-              </Link>
+            <Menu.Item key="/artifact_list" disabled={!userInfo.artifact}>
+              {
+                userInfo.artifact ?
+                  <Link to="/artifact_list">
+                    <Icon type="profile" />
+                    <span>装逼列表</span>
+                  </Link> :
+                  <Popover placement="left" content="没有权限，请联系管理员">
+                    <Icon type="profile" />
+                    <span>装逼列表</span>
+                  </Popover>
+              }
             </Menu.Item>
             <Menu.Item key="/font_list">
               <Link to="/font_list">

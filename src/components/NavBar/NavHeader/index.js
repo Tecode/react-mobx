@@ -1,14 +1,19 @@
 // Dead simple component for the hello world (hi mom!)
 
 import React from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import Icon from 'antd/lib/icon';
 import img from 'imgs/BiazfanxmamNRoxxVxka.png';
+import { remove } from 'js-cookie';
 import styles from './index.less';
 
-function Nav() {
+function Nav({ clientStore }) {
+  const loginOut = () => {
+    remove('remote_token');
+    window.location.href = '/login';
+  };
   const menu = (
     <Menu>
       <Menu.Item>
@@ -20,8 +25,10 @@ function Nav() {
         <span className={styles.text}>系统设置</span>
       </Menu.Item>
       <Menu.Item>
-        <Icon type="disconnect" />
-        <span className={styles.text}>退出登录</span>
+        <div onClick={loginOut}>
+          <Icon type="disconnect" />
+          <span className={styles.text}>退出登录</span>
+        </div>
       </Menu.Item>
     </Menu>
   );
@@ -33,11 +40,11 @@ function Nav() {
             <span className={styles.img_box}>
               <img src={img} />
             </span>
-            <span>Serati Ma</span>
+            <span>{clientStore.userInfo.name}</span>
           </div>
         </Dropdown>
       </li>
     </ul>
   );
 }
-export default observer(Nav);
+export default inject('clientStore')(observer(Nav));
