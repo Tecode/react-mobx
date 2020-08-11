@@ -158,7 +158,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "sc-colors": "1.0.1",
     "scroll-behavior": "0.3.2",
-    "serialize-javascript": "1.1.2",
+    "serialize-javascript": "3.1.0",
     "serve-favicon": "2.3.0",
     "url-loader": "0.5.7",
     "warning": "2.1.0",
